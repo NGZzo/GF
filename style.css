@@ -1,40 +1,20 @@
-.container {
-    width: 100%;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: #87CEEB; /* Sky Blue */
-    font-family: 'Helvetica', sans-serif;
+body {
+    /* Ensure the body uses the .container styles */
+    class: container;
 }
 
-h1, h2, h3 {
-    color: #FFB6C1; /* Light Pink for a romantic touch */
-    text-align: center;
+the.gallery {
+    /* Add necessary styling for the gallery */
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
 }
 
-p {
-    color: #333;
-    line-height: 1.6;
-}
-
-.button {
-    background-color: #FF69B4; /* Hot Pink */
-    border: none;
-    color: white;
-    padding: 10px 20px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 4px 2px;
-    cursor: pointer;
+.love-notes {
+    /* Add necessary styling for the love-notes */
+    font-style: italic;
+    color: #fff;
+    background-color: #ff69b4;
+    padding: 10px;
     border-radius: 5px;
-}
-
-@media (max-width: 600px) {
-    .container {
-        padding: 10px;
-    }
-    h1 {
-        font-size: 24px;
-    }
 }
