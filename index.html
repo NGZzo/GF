@@ -115,7 +115,7 @@ h1, h2, h3 {
     text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
 }
 
-.love-notes, .spotify-embed {
+.spotify-embed {
     background-color: rgba(255, 255, 255, 0.15);
     padding: 20px;
     border-radius: 15px;
@@ -217,65 +217,89 @@ h1 {
 </head>
 <body>
 
-<h1>💖 Our Love Notes</h1>
+<div class="notes-wrapper">
+    <h1>💖 Our Love Notes</h1>
 
-<div class="note-input">
-    <input type="text" id="noteText" placeholder="Write something sweet...">
-    <button onclick="addNote()">Add</button>
+    <div class="note-input">
+        <input type="text" id="noteText" placeholder="Write something sweet...">
+        <button onclick="addNote()">Add</button>
+    </div>
+
+    <div class="notes-container" id="notesContainer"></div>
 </div>
 
-<div class="notes-container" id="notesContainer"></div>
 
-<script>
-let notes = JSON.parse(localStorage.getItem("loveNotes")) || [];
 
-function saveNotes() {
-    localStorage.setItem("loveNotes", JSON.stringify(notes));
+    <style>
+body {
+    font-family: Arial, sans-serif;
+    background: #e6f4ff;
+    display: flex;
+    justify-content: center;
 }
 
-function renderNotes() {
-    const container = document.getElementById("notesContainer");
-    container.innerHTML = "";
-    notes.forEach((note, index) => {
-        container.innerHTML += `
-            <div class="note-card">
-                <span class="delete-btn" onclick="deleteNote(${index})">✖</span>
-                <p>${note.text}</p>
-                <div class="note-date">${note.date}</div>
-            </div>
-        `;
-    });
+.notes-wrapper {
+    width: 350px; /* supaya kecil */
+    margin-top: 40px;
+    background: white;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
 }
 
-function addNote() {
-    const input = document.getElementById("noteText");
-    if(input.value.trim() === "") return;
-
-    const newNote = {
-        text: input.value,
-        date: new Date().toLocaleString()
-    };
-
-    notes.unshift(newNote);
-    saveNotes();
-    renderNotes();
-    input.value = "";
+h1 {
+    text-align: center;
+    font-size: 20px;
 }
 
-function deleteNote(index) {
-    notes.splice(index, 1);
-    saveNotes();
-    renderNotes();
+.note-input {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
 }
 
-renderNotes();
+.note-input input {
+    flex: 1;
+    padding: 8px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+}
 
-iframe {
-    border-radius: 12px;
+.note-input button {
+    padding: 8px 12px;
+    border: none;
+    background: #ff7aa2;
+    color: white;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.note-card {
+    background: #fff0f5;
+    padding: 10px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    position: relative;
+    font-size: 14px;
+}
+
+.delete-btn {
+    position: absolute;
+    right: 8px;
+    top: 5px;
+    cursor: pointer;
+    color: red;
+    font-size: 12px;
+}
+
+.note-date {
+    font-size: 10px;
+    color: gray;
+    margin-top: 5px;
 }
 </style>
-</head>
 
+<style>
 <body>
 
 <nav>
@@ -301,12 +325,6 @@ iframe {
 <div class="container">
     <h1>Welcome to the Memory Keeper</h1>
     <h2>Our Memories in a Box</h2>
-
-    <div class="love-notes">
-        <h3>Love Notes</h3>
-        <p>For my only lover, Zzoraa.</p>
-        <textarea rows="5" placeholder="My life is better when I'm with you. Thanks for always choosing me."></textarea>
-    </div>
 
     <div class="spotify-embed">
         <h3>OUR PLAYLIST</h3>
