@@ -1,66 +1,142 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Gallery Page</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Our Memories 💖</title>
 
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background-color: #f0f8ff;
-    }
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
 
-    /* Navbar */
-    .navbar {
-      background-color: #333;
-      padding: 15px;
-    }
+/* ===== NAVBAR ===== */
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 30px;
+    background: rgba(255, 77, 166, 0.9);
+}
 
-    .navbar a {
-      color: white;
-      text-decoration: none;
-      font-size: 18px;
-      font-weight: bold;
-    }
+nav h2 {
+    color: white;
+}
 
-    .navbar a:hover {
-      color: #87cefa;
-    }
+nav ul {
+    list-style: none;
+}
 
-    /* Gallery */
-    .gallery {
-      background-color: rgba(255, 255, 255, 0.6);
-      padding: 20px;
-      border-radius: 10px;
-      margin: 20px;
-      text-align: center;
-    }
+nav ul li a {
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    transition: 0.3s;
+}
 
-    .gallery img {
-      max-width: 300px;
-      margin: 10px;
-      border-radius: 10px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+nav ul li a:hover {
+    color: #ffd6ec;
+}
+
+/* ===== BODY ===== */
+body {
+    background: linear-gradient(to right, #ff9ecf, #ffd6ec);
+    text-align: center;
+}
+
+h1 {
+    padding: 20px;
+    color: white;
+}
+
+/* ===== GALLERY ===== */
+.gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 15px;
+    padding: 20px;
+}
+
+.gallery img {
+    width: 100%;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: 0.3s ease;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+.gallery img:hover {
+    transform: scale(1.05);
+}
+
+/* ===== LIGHTBOX ===== */
+.lightbox {
+    position: fixed;
+    display: none;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.8);
+    justify-content: center;
+    align-items: center;
+}
+
+.lightbox img {
+    max-width: 90%;
+    max-height: 80%;
+    border-radius: 20px;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 600px) {
+    nav {
+        flex-direction: column;
+        gap: 10px;
     }
-  </style>
+}
+</style>
 </head>
 
 <body>
 
-  <!-- Navbar -->
-  <div class="navbar">
-    <a href="index.html">← Back to Home</a>
-  </div>
+<!-- ===== NAVBAR ===== -->
+<nav>
+    <h2>💖 Memory Keeper</h2>
+    <ul>
+        <li><a href="index.html">Home</a></li>
+    </ul>
+</nav>
 
-  <!-- Gallery -->
-  <div class="gallery">
-    <h3>Photo Gallery</h3>
-    <img src="Z.jpg" alt="Memory 1">
-    <img src="2.jpg" alt="Memory 2">
-    <img src="3.jpg" alt="Memory 3">
-  </div>
+<h1>💖 Our Sweet Memories 💖</h1>
+
+<!-- ===== GALLERY ===== -->
+<div class="gallery">
+    <img src="Z.jpg" onclick="openLightbox(this.src)">
+    <img src="2.jpg" onclick="openLightbox(this.src)">
+    <img src="3.jpg" onclick="openLightbox(this.src)">
+    <img src="4.jpg" onclick="openLightbox(this.src)">
+    <img src="5.jpg" onclick="openLightbox(this.src)">
+</div>
+
+<!-- ===== LIGHTBOX ===== -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+    <img id="lightbox-img">
+</div>
+
+<script>
+function openLightbox(src) {
+    document.getElementById("lightbox").style.display = "flex";
+    document.getElementById("lightbox-img").src = src;
+}
+
+function closeLightbox() {
+    document.getElementById("lightbox").style.display = "none";
+}
+</script>
 
 </body>
 </html>
