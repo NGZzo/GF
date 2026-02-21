@@ -22,8 +22,10 @@ nav {
     align-items: center;
     padding: 1rem 2rem;
     box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-    position: sticky;
+    position: fixed;          /* FIXED */
+    width: 100%;              /* WAJIB */
     top: 0;
+    left: 0;
     z-index: 1000;
 }
 
@@ -77,7 +79,7 @@ nav ul li a:hover::after {
     width: 100%;
 }
 
-/* MOBILE TOGGLE */
+/* MOBILE */
 .menu-toggle {
     display: none;
     flex-direction: column;
@@ -89,10 +91,8 @@ nav ul li a:hover::after {
     height: 3px;
     background: #333;
     margin: 4px 0;
-    transition: 0.3s;
 }
 
-/* RESPONSIVE */
 @media (max-width: 768px) {
 
     nav ul {
@@ -122,7 +122,7 @@ nav ul li a:hover::after {
 body {
     background: white;
     min-height: 100vh;
-    padding-top: 90px;
+    padding-top: 90px; /* supaya konten tidak ketiban navbar */
     position: relative;
     overflow-x: hidden;
 }
@@ -225,14 +225,6 @@ h1 {
 @keyframes fadeIn {
     from { opacity: 0; transform: scale(0.9); }
     to { opacity: 1; transform: scale(1); }
-}
-
-@media (max-width: 768px) {
-    body::before {
-        width: 350px;
-        height: 500px;
-        opacity: 0.04;
-    }
 }
 </style>
 </head>
