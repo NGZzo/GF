@@ -22,22 +22,83 @@ body {
 }
 
 /* NAV */
+
 nav {
-    margin-bottom: 30px;
-}
-
-nav a {
-    text-decoration: none;
-    color: white;
-    background: rgba(255,255,255,0.1);
-    padding: 8px 20px;
-    border-radius: 20px;
-    transition: 0.3s;
-}
-
-nav a:hover {
-    background: #5dade2;
-}
+‎    background: white;
+‎    display: flex;
+‎    justify-content: space-between;
+‎    align-items: center;
+‎    padding: 1rem 2rem;
+‎    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+‎    position: sticky;
+‎    top: 0;
+‎    z-index: 1000;
+‎}
+‎
+‎.logo {
+‎    display: flex;
+‎    align-items: center;
+‎    gap: 10px;
+‎}
+‎
+‎.logo img {
+‎    width: 45px;
+‎    border-radius: 50%;
+‎}
+‎
+‎.logo a {
+‎    text-decoration: none;
+‎    font-weight: bold;
+‎    font-size: 18px;
+‎    color: skyblue;
+‎}
+‎
+‎nav ul {
+‎    display: flex;
+‎    gap: 1.5rem;
+‎    list-style: none;
+‎}
+‎
+‎nav ul li a {
+‎    text-decoration: none;
+‎    color: black;
+‎    font-weight: 600;
+‎}
+‎
+‎.menu-toggle {
+‎    display: none;
+‎    flex-direction: column;
+‎    cursor: pointer;
+‎}
+‎
+‎.menu-toggle div {
+‎    width: 25px;
+‎    height: 3px;
+‎    background: black;
+‎    margin: 4px;
+‎}
+‎
+‎@media (max-width: 768px) {
+‎    nav ul {
+‎        position: absolute;
+‎        top: 70px;
+‎        right: 0;
+‎        background: white;
+‎        flex-direction: column;
+‎        width: 200px;
+‎        text-align: center;
+‎        padding: 20px 0;
+‎        display: none;
+‎    }
+‎
+‎    nav ul.active {
+‎        display: flex;
+‎    }
+‎
+‎    .menu-toggle {
+‎        display: flex;
+‎    }
+‎}
 
 /* TITLE */
 h1 {
@@ -128,10 +189,24 @@ h1 {
 <body>
 
 <nav>
-    <a href="index.html">Home</a>
-</nav>
-
-<h1>🎬 OUR SWEET MEMORIES</h1>
+‎    <div class="logo">
+‎        <img src="Z.jpg" alt="logo">
+‎        <a href="#">Our Video</a>
+‎    </div>
+‎
+‎    <ul id="nav-links">
+‎        <li><a href="https://www.instagram.com/vapoumbreon?igsh=MWRndmlpMXBlZnc5Ng==">Instagram</a></li>
+‎        <li><a href="video.html">Video</a></li>
+‎        <li><a href="photo.html">Photo</a></li>
+‎        <li><a href="music.html">Music</a></li>
+‎    </ul>
+‎
+‎    <div class="menu-toggle" onclick="toggleMenu()">
+‎        <div></div>
+‎        <div></div>
+‎        <div></div>
+‎    </div>
+‎</nav>
 
 <div class="video-grid">
    <div class="video-card" onclick="openModal('part1.mp4')">
