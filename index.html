@@ -147,13 +147,29 @@ nav ul li a:hover {
 }
 
 .note-card {
-    background: #fff0f5;
-    padding: 10px;
-    border-radius: 10px;
-    margin-bottom: 10px;
-    position: relative;
-    font-size: 14px;
+background: #fff0f5; 
+padding: 10px; 
+border-radius: 10px; 
+margin-bottom: 10px; 
+position: relative; font-size: 14px;
 }
+
+.note-card.nagata {
+    background: #ffe5e5;
+    border-left: 5px solid #ff1a1a;
+}
+
+.note-card.zzoraa {
+    background: #e0f7ff;
+  border-left: 5px solid #4dc3ff;
+}
+
+.note-input select {
+    padding: 8px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+}
+
 
 .delete-btn {
     position: absolute;
@@ -231,6 +247,12 @@ nav ul li a:hover {
     <h2>💖 Our Love Notes</h2>
 
     <div class="note-input">
+        <select id="noteAuthor">
+            <option value="nagata">Nagata ❤️</option>
+            <option value="zzoraa">Zzoraa 💙</option>
+        </select>
+
+        <input type="password" id="notePassword" placeholder="Password">
         <input type="text" id="noteText" placeholder="Tulis sesuatu yahh babyy">
         <button onclick="addNote()">Add</button>
     </div>
@@ -241,60 +263,84 @@ nav ul li a:hover {
 <script>
 const notesContainer = document.getElementById("notesContainer");
 const noteInput = document.getElementById("noteText");
+const noteAuthor = document.getElementById("noteAuthor");
+const notePassword = document.getElementById("notePassword");
 
-/* ===== LOAD NOTES SAAT WEB DIBUKA ===== */
+/* LOAD NOTES */
 window.onload = function() {
     const savedNotes = JSON.parse(localStorage.getItem("loveNotes")) || [];
-    savedNotes.forEach(note => createNote(note.text, note.date));
+    savedNotes.forEach(note => createNote(note.text, note.date, note.author));
 };
 
-/* ===== TOGGLE MENU ===== */
+/* TOGGLE MENU */
 function toggleMenu() {
     document.getElementById("nav-links").classList.toggle("active");
 }
 
-/* ===== TAMBAH NOTE ===== */
+/* ADD NOTE */
 function addNote() {
     const text = noteInput.value.trim();
+    const author = noteAuthor.value;
+    const password = notePassword.value;
+
     if(text === "") return;
 
+    /* CEK PASSWORD */
+    if(author === "nagata" && password !== "025") {
+        alert("Password Nagata salah!");
+        return;
+    }
+
+    if(author === "zzoraa" && password !== "023") {
+        alert("Password Zzoraa salah!");
+        return;
+    }
+
     const date = new Date().toLocaleString();
-    createNote(text, date);
-    saveNote(text, date);
+    createNote(text, date, author);
+    saveNote(text, date, author);
 
     noteInput.value = "";
+    notePassword.value = "";
 }
 
-/* ===== BUAT CARD NOTE ===== */
-function createNote(text, date) {
+/* CREATE NOTE */
+function createNote(text, date, author) {
     const card = document.createElement("div");
-    card.className = "note-card";
+    card.className = `note-card ${author}`;
+
+    let displayName = "";
+    if(author === "nagata") displayName = "Nagata ❤️";
+    if(author === "zzoraa") displayName = "Zzoraa 💙";
 
     card.innerHTML = `
         <span class="delete-btn">X</span>
+        <strong>${displayName}</strong>
         <p>${text}</p>
         <div class="note-date">${date}</div>
     `;
 
     card.querySelector(".delete-btn").onclick = function() {
-        deleteNote(text, date);
+        deleteNote(text, date, author);
         card.remove();
     };
 
     notesContainer.prepend(card);
 }
 
-/* ===== SIMPAN KE LOCAL STORAGE ===== */
-function saveNote(text, date) {
+/* SAVE */
+function saveNote(text, date, author) {
     const notes = JSON.parse(localStorage.getItem("loveNotes")) || [];
-    notes.push({ text, date });
+    notes.push({ text, date, author });
     localStorage.setItem("loveNotes", JSON.stringify(notes));
 }
 
-/* ===== HAPUS DARI LOCAL STORAGE ===== */
-function deleteNote(text, date) {
+/* DELETE */
+function deleteNote(text, date, author) {
     let notes = JSON.parse(localStorage.getItem("loveNotes")) || [];
-    notes = notes.filter(note => !(note.text === text && note.date === date));
+    notes = notes.filter(note =>
+        !(note.text === text && note.date === date && note.author === author)
+    );
     localStorage.setItem("loveNotes", JSON.stringify(notes));
 }
 </script>
