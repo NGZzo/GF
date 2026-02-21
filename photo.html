@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Our Memories </title>
+<title>Our Memories</title>
 
 <style>
 * {
@@ -19,7 +19,7 @@ nav {
     justify-content: space-between;
     align-items: center;
     padding: 15px 30px;
-    background: gray;
+    background: #888888; /* abu-abu */
 }
 
 nav h2 {
@@ -38,35 +38,51 @@ nav ul li a {
 }
 
 nav ul li a:hover {
-    color: #ffd6ec;
+    opacity: 0.7;
 }
 
 /* ===== BODY ===== */
 body {
-    background: linear-gradient(to right, #ff9ecf, #ffd6ec);
-    text-align: center;
     background-color: white;
+    position: relative;
+    min-height: 100vh;
+    text-align: center;
 }
 
+/* ===== SILUET BACKGROUND ===== */
+body::before {
+    content: "";
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    width: 500px; /* bisa kamu atur */
+    height: 700px;
+    background: url("shorekeeper-silhouette.png") no-repeat bottom right;
+    background-size: contain;
+    opacity: 0.08; /* efek siluet soft */
+    z-index: -1;
+}
+
+/* ===== TITLE ===== */
 h1 {
-    padding: 20px;
-    color: white;
+    padding: 30px;
+    color: #444;
 }
 
 /* ===== GALLERY ===== */
 .gallery {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
     gap: 15px;
-    padding: 20px;
+    padding: 20px 40px;
 }
 
 .gallery img {
     width: 100%;
-    border-radius: 20px;
+    border-radius: 15px;
     cursor: pointer;
     transition: 0.3s ease;
-    box-shadow: 0 5px 15px white;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.15);
 }
 
 .gallery img:hover {
@@ -81,7 +97,7 @@ h1 {
     left: 0;
     width: 100%;
     height: 100%;
-    background: white;
+    background: rgba(0,0,0,0.8);
     justify-content: center;
     align-items: center;
 }
@@ -89,11 +105,17 @@ h1 {
 .lightbox img {
     max-width: 90%;
     max-height: 80%;
-    border-radius: 20px;
+    border-radius: 15px;
 }
 
 /* ===== RESPONSIVE ===== */
-@media (max-width: 600px) {
+@media (max-width: 768px) {
+    body::before {
+        width: 300px;
+        height: 450px;
+        opacity: 0.05;
+    }
+
     nav {
         flex-direction: column;
         gap: 10px;
@@ -104,7 +126,6 @@ h1 {
 
 <body>
 
-<!-- ===== NAVBAR ===== -->
 <nav>
     <h2>Memory Keeper</h2>
     <ul>
@@ -114,16 +135,13 @@ h1 {
 
 <h1>Our Sweet Memories</h1>
 
-<!-- ===== GALLERY ===== -->
 <div class="gallery">
     <img src="Z.jpg" onclick="openLightbox(this.src)">
     <img src="2.jpg" onclick="openLightbox(this.src)">
     <img src="3.jpg" onclick="openLightbox(this.src)">
     <img src="4.jpg" onclick="openLightbox(this.src)">
-    <img src="5.jpg" onclick="openLightbox(this.src)">
 </div>
 
-<!-- ===== LIGHTBOX ===== -->
 <div class="lightbox" id="lightbox" onclick="closeLightbox()">
     <img id="lightbox-img">
 </div>
