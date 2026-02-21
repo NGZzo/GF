@@ -17,7 +17,7 @@ body {
     background: linear-gradient(to right, #87ceeb, #b0e0ff);
 }
 
-/* ===== NAVBAR ===== */
+/* NAVBAR */
 nav {
     background: white;
     display: flex;
@@ -47,6 +47,10 @@ nav {
     color: skyblue;
 }
 
+.logo a {
+    text-decoration: none;
+}
+
 nav ul {
     display: flex;
     gap: 1.5rem;
@@ -60,18 +64,10 @@ nav ul li a {
     transition: 0.3s;
 }
 
-nav span a {
-    text-decoration: none;
-    color: black;
-    font-weight: 600;
-    transition: 0.3s;
-}
-
 nav ul li a:hover {
     color: skyblue;
 }
 
-/* ===== HAMBURGER ===== */
 .menu-toggle {
     display: none;
     flex-direction: column;
@@ -85,7 +81,6 @@ nav ul li a:hover {
     margin: 4px;
 }
 
-/* ===== MOBILE NAV ===== */
 @media (max-width: 768px) {
     nav ul {
         position: absolute;
@@ -109,14 +104,13 @@ nav ul li a:hover {
     }
 }
 
-/* ===== CONTENT ===== */
 .container {
     padding: 40px 20px;
     text-align: center;
     color: white;
 }
 
-/* ===== LOVE NOTES MODERN ===== */
+/* NOTES */
 .notes-wrapper {
     max-width: 600px;
     margin: 60px auto;
@@ -132,7 +126,6 @@ nav ul li a:hover {
     color: #ff7aa2;
 }
 
-/* LOVE COUNTER */
 .love-counter {
     display: flex;
     justify-content: space-between;
@@ -159,7 +152,6 @@ nav ul li a:hover {
     color: #0077b6;
 }
 
-/* INPUT AREA */
 .note-input {
     display: flex;
     flex-wrap: wrap;
@@ -174,7 +166,6 @@ nav ul li a:hover {
     padding: 10px;
     border-radius: 10px;
     border: 1px solid #ddd;
-    font-size: 14px;
 }
 
 .note-input button {
@@ -184,33 +175,20 @@ nav ul li a:hover {
     color: white;
     border-radius: 10px;
     cursor: pointer;
-    transition: 0.3s;
     font-weight: bold;
 }
 
-.note-input button:hover {
-    transform: scale(1.05);
-}
-
-/* NOTES LIST */
 #notesContainer {
     display: flex;
     flex-direction: column;
     gap: 15px;
 }
 
-/* NOTE CARD */
 .note-card {
     background: #fff0f5;
     padding: 15px;
     border-radius: 15px;
     position: relative;
-    animation: fadeIn 0.4s ease-in-out;
-    transition: 0.3s;
-}
-
-.note-card:hover {
-    transform: translateY(-3px);
 }
 
 .note-card.nagata {
@@ -228,63 +206,13 @@ nav ul li a:hover {
     margin-bottom: 5px;
 }
 
-.note-card p {
-    margin-bottom: 8px;
-    font-size: 14px;
-}
-
 .note-date {
     font-size: 11px;
     color: gray;
 }
 
-/* DELETE BUTTON */
-.delete-btn {
-    position: absolute;
-    right: 12px;
-    top: 10px;
-    cursor: pointer;
-    font-size: 12px;
-    color: red;
-    font-weight: bold;
-}
-
-/* HEART ANIMATION */
 .heart {
-    display: inline-block;
     margin-left: 5px;
-    animation: heartbeat 1s infinite;
-}
-
-.heart.nagata {
-    color: #ff1a1a;
-}
-
-.heart.zzoraa {
-    color: #4dc3ff;
-}
-
-@keyframes heartbeat {
-    0% { transform: scale(1); }
-    25% { transform: scale(1.3); }
-    50% { transform: scale(1); }
-    75% { transform: scale(1.3); }
-    100% { transform: scale(1); }
-}
-
-/* MOBILE */
-@media (max-width: 600px) {
-    .love-counter {
-        flex-direction: column;
-    }
-
-    .note-input {
-        flex-direction: column;
-    }
-
-    .note-input button {
-        width: 100%;
-    }
 }
 </style>
 </head>
@@ -294,13 +222,13 @@ nav ul li a:hover {
 <nav>
     <div class="logo">
         <img src="Z.jpg" alt="logo">
-        <span><a href="#">Memory Keeper</span></a>
+        <a href="#"><span>Memory Keeper</span></a>
     </div>
 
     <ul id="nav-links">
-        <li><a href="https://www.instagram.com/vapoumbreon" target="_blank">Instagram</a></li>
+        <li><a href="#">Instagram</a></li>
         <li><a href="#">Video</a></li>
-        <li><a href="photo.html">Photo</a></li>
+        <li><a href="#">Photo</a></li>
     </ul>
 
     <div class="menu-toggle" onclick="toggleMenu()">
@@ -341,21 +269,29 @@ nav ul li a:hover {
     <div id="notesContainer"></div>
 </div>
 
+<!-- FIREBASE CDN -->
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+
 <script>
+const firebaseConfig = {
+  apiKey: "AIzaSyAoLxkrscN6sBUXAVc3ZRp2GRCb7kPkuVI",
+  authDomain: "love-storage-e3fa8.firebaseapp.com",
+  projectId: "love-storage-e3fa8",
+  storageBucket: "love-storage-e3fa8.firebasestorage.app",
+  messagingSenderId: "123681764269",
+  appId: "1:123681764269:web:a6fea729c43aabdef9e724"
+};
+
+firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
+
 const notesContainer = document.getElementById("notesContainer");
 const noteInput = document.getElementById("noteText");
 const noteAuthor = document.getElementById("noteAuthor");
 const notePassword = document.getElementById("notePassword");
 const nagataCountEl = document.getElementById("nagataCount");
 const zzoraaCountEl = document.getElementById("zzoraaCount");
-
-window.onload = function() {
-    const savedNotes = JSON.parse(localStorage.getItem("loveNotes")) || [];
-    savedNotes.forEach(note => {
-        createNote(note.text, note.date, note.author);
-    });
-    updateCounter();
-};
 
 function toggleMenu() {
     document.getElementById("nav-links").classList.toggle("active");
@@ -379,8 +315,13 @@ function addNote() {
     }
 
     const date = new Date().toLocaleString();
-    createNote(text, date, author);
-    saveNote(text, date, author);
+
+    db.collection("loveNotes").add({
+        text: text,
+        author: author,
+        date: date,
+        timestamp: firebase.firestore.FieldValue.serverTimestamp()
+    });
 
     noteInput.value = "";
     notePassword.value = "";
@@ -390,59 +331,37 @@ function createNote(text, date, author) {
     const card = document.createElement("div");
     card.className = `note-card ${author}`;
 
-    let displayName = "";
-    let heartSymbol = "";
-
-    if(author === "nagata") {
-        displayName = "Nagata";
-        heartSymbol = `<span class="heart nagata">❤️</span>`;
-    }
-
-    if(author === "zzoraa") {
-        displayName = "Zzoraa";
-        heartSymbol = `<span class="heart zzoraa">💙</span>`;
-    }
+    const heart = author === "nagata" ? "❤️" : "💙";
+    const name = author === "nagata" ? "Nagata" : "Zzoraa";
 
     card.innerHTML = `
-        <span class="delete-btn">X</span>
-        <strong>${displayName} ${heartSymbol}</strong>
+        <strong>${name} <span class="heart">${heart}</span></strong>
         <p>${text}</p>
         <div class="note-date">${date}</div>
     `;
 
-    card.querySelector(".delete-btn").onclick = function() {
-        deleteNote(text, date, author);
-        card.remove();
-        updateCounter();
-    };
-
-    notesContainer.prepend(card);
-    updateCounter();
+    notesContainer.appendChild(card);
 }
 
-function saveNote(text, date, author) {
-    const notes = JSON.parse(localStorage.getItem("loveNotes")) || [];
-    notes.push({ text, date, author });
-    localStorage.setItem("loveNotes", JSON.stringify(notes));
-}
+db.collection("loveNotes")
+.orderBy("timestamp", "desc")
+.onSnapshot(snapshot => {
+    notesContainer.innerHTML = "";
 
-function deleteNote(text, date, author) {
-    let notes = JSON.parse(localStorage.getItem("loveNotes")) || [];
-    notes = notes.filter(note =>
-        !(note.text === text && note.date === date && note.author === author)
-    );
-    localStorage.setItem("loveNotes", JSON.stringify(notes));
-}
+    let nagataCount = 0;
+    let zzoraaCount = 0;
 
-function updateCounter() {
-    const notes = JSON.parse(localStorage.getItem("loveNotes")) || [];
+    snapshot.forEach(doc => {
+        const note = doc.data();
+        createNote(note.text, note.date, note.author);
 
-    const nagataCount = notes.filter(n => n.author === "nagata").length;
-    const zzoraaCount = notes.filter(n => n.author === "zzoraa").length;
+        if(note.author === "nagata") nagataCount++;
+        if(note.author === "zzoraa") zzoraaCount++;
+    });
 
     nagataCountEl.textContent = nagataCount;
     zzoraaCountEl.textContent = zzoraaCount;
-}
+});
 </script>
 
 </body>
