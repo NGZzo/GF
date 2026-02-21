@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Our Video Memories</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+body {
+    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+    color: white;
+    min-height: 100vh;
+    padding: 40px 20px;
+    text-align: center;
+}
+
+/* NAV */
+nav {
+    margin-bottom: 30px;
+}
+
+nav a {
+    text-decoration: none;
+    color: white;
+    background: rgba(255,255,255,0.1);
+    padding: 8px 20px;
+    border-radius: 20px;
+    transition: 0.3s;
+}
+
+nav a:hover {
+    background: #5dade2;
+}
+
+/* TITLE */
+h1 {
+    margin-bottom: 40px;
+    letter-spacing: 2px;
+}
+
+/* GRID */
+.video-grid {
+    max-width: 1200px;
+    margin: auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 30px;
+}
+
+/* CARD */
+.video-card {
+    position: relative;
+    border-radius: 20px;
+    overflow: hidden;
+    cursor: pointer;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+    transition: 0.4s ease;
+}
+
+.video-card video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: 0.4s ease;
+}
+
+.video-card:hover {
+    transform: translateY(-10px);
+}
+
+.video-card:hover video {
+    transform: scale(1.05);
+}
+
+/* Play icon overlay */
+.video-card::after {
+    content: "▶";
+    position: absolute;
+    font-size: 40px;
+    color: white;
+    inset: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0,0,0,0.4);
+    opacity: 0;
+    transition: 0.3s;
+}
+
+.video-card:hover::after {
+    opacity: 1;
+}
+
+/* MODAL */
+.modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.95);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    padding: 20px;
+}
+
+.modal video {
+    max-width: 90%;
+    max-height: 90%;
+    border-radius: 20px;
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.9); }
+    to { opacity: 1; transform: scale(1); }
+}
+</style>
+</head>
+
+<body>
+
+<nav>
+    <a href="index.html">Home</a>
+</nav>
+
+<h1>🎬 OUR SWEET MEMORIES</h1>
+
+<div class="video-grid">
+    <div class="video-card" onclick="openModal('1.mp4')">
+        <video src="1.mp4" muted></video>
+    </div>
+    <div class="video-card" onclick="openModal('2.mp4')">
+        <video src="2.mp4" muted></video>
+    </div>
+    <div class="video-card" onclick="openModal('3.mp4')">
+        <video src="3.mp4" muted></video>
+    </div>
+    <div class="video-card" onclick="openModal('4.mp4')">
+        <video src="4.mp4" muted></video>
+    </div>
+</div>
+
+<div class="modal" id="modal" onclick="closeModal()">
+    <video controls id="modalVideo"></video>
+</div>
+
+<script>
+const modal = document.getElementById("modal");
+const modalVideo = document.getElementById("modalVideo");
+
+function openModal(src) {
+    modal.style.display = "flex";
+    modalVideo.src = src;
+    modalVideo.play();
+}
+
+function closeModal() {
+    modal.style.display = "none";
+    modalVideo.pause();
+}
+</script>
+
+</body>
+</html>
