@@ -1,28 +1,66 @@
-  <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<style
-  .gallery {
-      background-color: rgba(255, 255, 255, 0.1);
+  <title>Gallery Page</title>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #f0f8ff;
+    }
+
+    /* Navbar */
+    .navbar {
+      background-color: #333;
+      padding: 15px;
+    }
+
+    .navbar a {
+      color: white;
+      text-decoration: none;
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    .navbar a:hover {
+      color: #87cefa;
+    }
+
+    /* Gallery */
+    .gallery {
+      background-color: rgba(255, 255, 255, 0.6);
       padding: 20px;
       border-radius: 10px;
-      margin: 20px 0;
+      margin: 20px;
+      text-align: center;
     }
+
     .gallery img {
       max-width: 300px;
       margin: 10px;
       border-radius: 10px;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     }
-</style>
+  </style>
+</head>
+
 <body>
+
+  <!-- Navbar -->
+  <div class="navbar">
+    <a href="index.html">← Back to Home</a>
+  </div>
+
+  <!-- Gallery -->
   <div class="gallery">
     <h3>Photo Gallery</h3>
     <img src="Z.jpg" alt="Memory 1">
     <img src="2.jpg" alt="Memory 2">
     <img src="3.jpg" alt="Memory 3">
   </div>
+
 </body>
-</head>
+</html>
