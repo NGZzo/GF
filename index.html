@@ -1,107 +1,140 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="/style.css">
-  <title>Memory Keeper</title>
-<nav>
-  <div class="logo">
-    <img src="Z.jpg" alt="logo">
-    
-    <ul>
-      <li><a href="#">Home</a></li>
-      <li><a href="#">Instagram</a></li>
-      <li><a href="#">Video</a></li>
-      <li><a href="photo.html">Photo</a></li>
-    </ul>
-  </div>
-</nav>
-  <style>
-*, html {
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Memory Keeper</title>
+
+<style>
+* {
     padding: 0;
     margin: 0;
     box-sizing: border-box;
 }
 
+body {
+    background: linear-gradient(to right, #87ceeb, #b0e0ff);
+    font-family: Arial, sans-serif;
+}
+
+/* ===== NAVBAR ===== */
 nav {
     background-color: white;
     display: flex;
     justify-content: space-between;
+    align-items: center;
     padding: 1rem 2rem;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.logo img {
+    width: 45px;
+    border-radius: 50%;
+}
+
+.logo span {
+    font-weight: bold;
+    font-size: 18px;
+    color: skyblue;
 }
 
 nav ul {
     display: flex;
-    align-items: center;
-    gap: 1rem;
+    gap: 1.5rem;
     list-style: none;
-}
-
-nav div img {
-    width: 50px;
 }
 
 nav ul li a {
     text-decoration: none;
     color: black;
     font-weight: 600;
-    padding: 8px 0;
-    transition: all 300ms ease;
-    border-bottom: 1px solid transparent;
+    padding: 6px 0;
+    transition: 0.3s;
+    border-bottom: 2px solid transparent;
 }
 
 nav ul li a:hover {
     color: skyblue;
-    border-bottom: 1px solid black;
+    border-bottom: 2px solid skyblue;
 }
 
-    body {
-      background-color: skyblue;
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 20px;
-    }
-    h1, h2, h3 {
-      color: white;
-      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-    }
-  
-    .love-notes {
-      background-color: rgba(255, 255, 255, 0.1);
-      padding: 20px;
-      border-radius: 10px;
-      margin: 20px 0;
-    }
-    textarea {
-      width: 100%;
-      max-width: 500px;
-      padding: 10px;
-      border: 2px solid white;
-      border-radius: 5px;
-      font-family: Arial, sans-serif;
-    }
-    .spotify-embed {
-      background-color: rgba(255, 255, 255, 0.1);
-      padding: 20px;
-      border-radius: 10px;
-      margin: 20px 0;
-    }
-  </style>
+/* ===== CONTENT ===== */
+.container {
+    padding: 30px;
+}
+
+h1, h2, h3 {
+    color: white;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+}
+
+.love-notes, .spotify-embed {
+    background-color: rgba(255, 255, 255, 0.15);
+    padding: 20px;
+    border-radius: 15px;
+    margin: 20px 0;
+    backdrop-filter: blur(5px);
+}
+
+textarea {
+    width: 100%;
+    max-width: 500px;
+    padding: 10px;
+    border: 2px solid white;
+    border-radius: 8px;
+    resize: none;
+    font-family: Arial, sans-serif;
+}
+
+iframe {
+    border-radius: 12px;
+}
+</style>
 </head>
+
 <body>
-  <h1>Welcome to the Memory Keeper</h1>
-  <h2>Our Memories in a Box</h2>
-  
-  <div class="love-notes">
-    <h3>Love Notes</h3>
-    <p>For my only lover, Zzoraa.</p>
-    <textarea rows="5" placeholder="My life is better when I'm with you. Thanks for always choosing me."></textarea>
-  </div>
-  
-  <div class="spotify-embed">
-    <h3>Listen to my Playlist for You</h3>
-    <iframe src="https://open.spotify.com/embed/playlist/5b2tUBT9L9tz3cz8R5kQnT?si=4u7E4v6tTceyNOaGAASitg&pi=gLBBzp6-Sd-Nl" width="300" height="380" frameborder="0" allowtransparency="true" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
-  </div>
+
+<nav>
+    <div class="logo">
+        <img src="Z.jpg" alt="logo">
+        <span>Memory Keeper</span>
+    </div>
+
+    <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Instagram</a></li>
+        <li><a href="#">Video</a></li>
+        <li><a href="photo.html">Photo</a></li>
+    </ul>
+</nav>
+
+<div class="container">
+    <h1>Welcome to the Memory Keeper</h1>
+    <h2>Our Memories in a Box</h2>
+
+    <div class="love-notes">
+        <h3>Love Notes</h3>
+        <p>For my only lover, Zzoraa.</p>
+        <textarea rows="5" placeholder="My life is better when I'm with you. Thanks for always choosing me."></textarea>
+    </div>
+
+    <div class="spotify-embed">
+        <h3>Listen to my Playlist for You</h3>
+        <iframe 
+        src="https://open.spotify.com/embed/playlist/5b2tUBT9L9tz3cz8R5kQnT"
+        width="300" 
+        height="380" 
+        frameborder="0" 
+        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture">
+        </iframe>
+    </div>
+</div>
+
 </body>
 </html>
