@@ -253,6 +253,101 @@ h1 {
 
 <h1>OUR SWEET MEMORIES</h1>
 
+<!-- Tambahkan tepat sebelum <div class="gallery"> -->
+<div class="upload-wrapper" style="max-width:400px; margin:20px auto; text-align:center;">
+  <h3>💖 Upload Your Photo</h3>
+  <input type="password" id="uploadPassword" placeholder="Enter Password" style="width:100%; padding:10px; margin:5px 0; border-radius:8px; border:1px solid #ccc;">
+  <input type="file" id="fileInput" accept="image/*" style="width:100%; padding:10px; margin:5px 0; border-radius:8px; border:1px solid #ccc;">
+  <button onclick="uploadPhoto()" style="width:100%; padding:10px; margin:10px 0; border:none; border-radius:8px; background:linear-gradient(to right,#ff7aa2,#ff4f81); color:white; font-weight:bold; cursor:pointer;">Upload</button>
+  <p id="uploadStatus" style="font-weight:bold;"></p>
+</div>
+
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-app.js";
+  import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-storage.js";
+  import { getFirestore, collection, addDoc, getDocs, serverTimestamp } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-firestore.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyAoLxkrscN6sBUXAVc3ZRp2GRCb7kPkuVI",
+    authDomain: "love-storage-e3fa8.firebaseapp.com",
+    projectId: "love-storage-e3fa8",
+    storageBucket: "love-storage-e3fa8.firebasestorage.app",
+    messagingSenderId: "123681764269",
+    appId: "1:123681764269:web:acfee7e0204b130af9e724",
+    measurementId: "G-04R21W3M1R"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const storage = getStorage(app);
+  const db = getFirestore(app);
+
+  const PASSWORD = "NagZzor2325";
+
+  const gallery = document.querySelector(".gallery");
+  const status = document.getElementById("uploadStatus");
+
+  async function uploadPhoto() {
+    const password = document.getElementById("uploadPassword").value;
+    const file = document.getElementById("fileInput").files[0];
+
+    if(password !== PASSWORD) { alert("Wrong password!"); return; }
+    if(!file) { alert("Select a file!"); return; }
+
+    const storageRef = ref(storage, `gallery/${Date.now()}_${file.name}`);
+    const uploadTask = uploadBytesResumable(storageRef, file);
+
+    status.textContent = "Uploading... 0%";
+
+    uploadTask.on('state_changed', snapshot => {
+      const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+      status.textContent = `Uploading... ${Math.floor(progress)}%`;
+    }, error => {
+      console.error(error);
+      status.textContent = "Upload failed!";
+    }, async () => {
+      const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
+      status.textContent = "Upload complete!";
+
+      // Simpan info ke Firestore
+      await addDoc(collection(db, "photos"), { url: downloadURL, uploadedAt: serverTimestamp() });
+
+      // Tampilkan langsung di gallery
+      const card = document.createElement("div");
+      card.className = "photo-card";
+      card.setAttribute("onclick", `openLightbox('${downloadURL}')`);
+      card.innerHTML = `<img src="${downloadURL}">`;
+      gallery.prepend(card);
+
+      // reset input
+      document.getElementById("fileInput").value = "";
+      document.getElementById("uploadPassword").value = "";
+    });
+  }
+
+  // Load semua foto dari Firestore saat page load
+  window.addEventListener('DOMContentLoaded', async () => {
+    const snapshot = await getDocs(collection(db, "photos"));
+    snapshot.forEach(doc => {
+      const data = doc.data();
+      const card = document.createElement("div");
+      card.className = "photo-card";
+      card.setAttribute("onclick", `openLightbox('${data.url}')`);
+      card.innerHTML = `<img src="${data.url}">`;
+      gallery.appendChild(card);
+    });
+  });
+
+  // Lightbox
+  window.openLightbox = function(src) {
+    const lightbox = document.getElementById("lightbox");
+    lightbox.style.display = "flex";
+    document.getElementById("lightbox-img").src = src;
+  };
+  window.closeLightbox = function() {
+    document.getElementById("lightbox").style.display = "none";
+  };
+</script>
+
 <div class="gallery">
     <div class="photo-card" onclick="openLightbox('Z.jpg')"><img src="Z.jpg"></div>
     <div class="photo-card" onclick="openLightbox('2.jpg')"><img src="2.jpg"></div>
