@@ -17,14 +17,15 @@ body {
     background: linear-gradient(to right, #87ceeb, #b0e0ff);
 }
 
-/* NAVBAR */
+/* ================= NAVBAR ================= */
+
 nav {
     background: white;
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 1rem 2rem;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
     position: sticky;
     top: 0;
     z-index: 1000;
@@ -38,28 +39,50 @@ nav {
 
 .logo img {
     width: 45px;
+    height: 45px;
     border-radius: 50%;
+    object-fit: cover;
 }
 
 .logo a {
     text-decoration: none;
     font-weight: bold;
     font-size: 18px;
-    color: skyblue;
+    color: #2c5364;
 }
 
+/* NAV LINKS */
 nav ul {
     display: flex;
-    gap: 1.5rem;
+    gap: 1.8rem;
     list-style: none;
 }
 
 nav ul li a {
     text-decoration: none;
-    color: black;
+    color: #333;
     font-weight: 600;
+    position: relative;
+    transition: 0.3s ease;
 }
 
+/* Underline animation */
+nav ul li a::after {
+    content: "";
+    position: absolute;
+    width: 0%;
+    height: 2px;
+    left: 0;
+    bottom: -5px;
+    background: #2c5364;
+    transition: 0.3s;
+}
+
+nav ul li a:hover::after {
+    width: 100%;
+}
+
+/* HAMBURGER */
 .menu-toggle {
     display: none;
     flex-direction: column;
@@ -69,21 +92,30 @@ nav ul li a {
 .menu-toggle div {
     width: 25px;
     height: 3px;
-    background: black;
-    margin: 4px;
+    background: #333;
+    margin: 4px 0;
+    transition: 0.3s;
 }
 
+/* RESPONSIVE */
 @media (max-width: 768px) {
+
     nav ul {
         position: absolute;
         top: 70px;
         right: 0;
         background: white;
         flex-direction: column;
-        width: 200px;
+        width: 220px;
         text-align: center;
         padding: 20px 0;
         display: none;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        border-radius: 0 0 0 15px;
+    }
+
+    nav ul li {
+        padding: 10px 0;
     }
 
     nav ul.active {
@@ -95,14 +127,16 @@ nav ul li a {
     }
 }
 
-/* CONTENT */
+/* ================= CONTENT ================= */
+
 .container {
     padding: 40px 20px;
     text-align: center;
     color: white;
 }
 
-/* NOTES */
+/* ================= NOTES ================= */
+
 .notes-wrapper {
     max-width: 600px;
     margin: 60px auto;
@@ -168,6 +202,11 @@ nav ul li a {
     border-radius: 10px;
     cursor: pointer;
     font-weight: bold;
+    transition: 0.3s;
+}
+
+.note-input button:hover {
+    opacity: 0.9;
 }
 
 #notesContainer {
