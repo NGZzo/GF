@@ -6,167 +6,69 @@
 <title>Our Memories</title>
 
 <style>
-* { margin: 0; padding: 0; box-sizing: border-box; font-family: Arial, sans-serif; }
-
-/* ================= NAVBAR ================= */
-nav {
-    background: white;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1rem 2rem;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-    position: fixed;
-    width: 100%;
-    top: 0; left: 0;
-    z-index: 1000;
-}
-.logo { display: flex; align-items: center; gap: 10px; }
-.logo img { width: 45px; height: 45px; object-fit: cover; border-radius: 50%; }
-.logo a { text-decoration: none; font-weight: bold; font-size: 18px; color: #2c5364; }
-nav ul { display: flex; gap: 1.5rem; list-style: none; }
-nav ul li a { text-decoration: none; color: #333; font-weight: 600; position: relative; transition: 0.3s; }
-nav ul li a::after { content: ""; position: absolute; width: 0%; height: 2px; bottom: -4px; left: 0; background: #2c5364; transition: 0.3s; }
-nav ul li a:hover::after { width: 100%; }
-.menu-toggle { display: none; flex-direction: column; cursor: pointer; }
-.menu-toggle div { width: 25px; height: 3px; background: #333; margin: 4px 0; }
-@media (max-width: 768px) {
-    nav ul {
-        position: absolute;
-        top: 70px;
-        right: 0;
-        background: white;
-        flex-direction: column;
-        width: 220px;
-        text-align: center;
-        padding: 20px 0;
-        display: none;
-        box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-    }
-    nav ul.active { display: flex; }
-    .menu-toggle { display: flex; }
-}
-
-/* ================= BODY ================= */
-body {
-    background: white;
-    min-height: 100vh;
-    padding-top: 90px;
-    position: relative;
-    overflow-x: hidden;
-}
-body::before {
-    content: "";
-    position: fixed;
-    bottom: 0;
-    right: -50px;
-    width: 600px;
-    height: 800px;
-    background: url("shorekeeper-silhouette.png") no-repeat bottom right;
-    background-size: contain;
-    opacity: 0.06;
-    filter: blur(1px);
-    z-index: -1;
-}
-h1 { text-align: center; padding: 30px 0; color: #444; letter-spacing: 2px; }
-
-.gallery {
-    width: 92%;
-    max-width: 1300px;
-    margin: 0 auto 80px auto;
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-    gap: 30px;
-}
-
-.photo-card {
-    position: relative;
-    border-radius: 25px;
-    overflow: hidden;
-    cursor: pointer;
-    background: #f8f8f8;
-    aspect-ratio: 3/4;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
-    transition: all 0.4s ease;
-}
-.photo-card img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.5s ease;
-}
-.photo-card:hover { transform: translateY(-8px); box-shadow: 0 20px 40px rgba(0,0,0,0.15); }
-.photo-card:hover img { transform: scale(1.08); }
-.photo-card::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(to top, rgba(0,0,0,0.25), transparent);
-    opacity: 0;
-    transition: 0.4s;
-}
-.photo-card:hover::after { opacity: 1; }
-
-.lightbox {
-    position: fixed;
-    display: none;
-    top: 0; left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0,0,0,0.85);
-    justify-content: center;
-    align-items: center;
-    z-index: 2000;
-}
-.lightbox img {
-    max-width: 85%;
-    max-height: 85%;
-    border-radius: 20px;
-    animation: fadeIn 0.3s ease;
-}
-@keyframes fadeIn { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
+* {margin:0; padding:0; box-sizing:border-box; font-family: Arial, sans-serif;}
+nav {background:white; display:flex; justify-content:space-between; align-items:center; padding:1rem 2rem; box-shadow:0 4px 15px rgba(0,0,0,0.1); position:fixed; width:100%; top:0; left:0; z-index:1000;}
+.logo {display:flex; align-items:center; gap:10px;}
+.logo img {width:45px; height:45px; object-fit:cover; border-radius:50%;}
+.logo a {text-decoration:none; font-weight:bold; font-size:18px; color:#2c5364;}
+nav ul {display:flex; gap:1.5rem; list-style:none;}
+nav ul li a {text-decoration:none; color:#333; font-weight:600; position:relative; transition:0.3s;}
+nav ul li a::after {content:""; position:absolute; width:0%; height:2px; bottom:-4px; left:0; background:#2c5364; transition:0.3s;}
+nav ul li a:hover::after {width:100%;}
+.menu-toggle {display:none; flex-direction:column; cursor:pointer;}
+.menu-toggle div {width:25px; height:3px; background:#333; margin:4px 0;}
+@media(max-width:768px){nav ul{position:absolute; top:70px; right:0; background:white; flex-direction:column; width:220px; text-align:center; padding:20px 0; display:none; box-shadow:0 8px 20px rgba(0,0,0,0.1);} nav ul.active{display:flex;} .menu-toggle{display:flex;}}
+body {background:white; min-height:100vh; padding-top:90px; position:relative; overflow-x:hidden;}
+body::before {content:""; position:fixed; bottom:0; right:-50px; width:600px; height:800px; background:url("shorekeeper-silhouette.png") no-repeat bottom right; background-size:contain; opacity:0.06; filter:blur(1px); z-index:-1;}
+h1 {text-align:center; padding:30px 0; color:#444; letter-spacing:2px;}
+.gallery {width:92%; max-width:1300px; margin:0 auto 80px auto; display:grid; grid-template-columns:repeat(auto-fill, minmax(240px,1fr)); gap:30px;}
+.photo-card {position:relative; border-radius:25px; overflow:hidden; cursor:pointer; background:#f8f8f8; aspect-ratio:3/4; box-shadow:0 10px 25px rgba(0,0,0,0.08); transition:all 0.4s ease;}
+.photo-card img {width:100%; height:100%; object-fit:cover; transition:transform 0.5s ease;}
+.photo-card:hover {transform:translateY(-8px); box-shadow:0 20px 40px rgba(0,0,0,0.15);}
+.photo-card:hover img {transform:scale(1.08);}
+.photo-card::after {content:""; position:absolute; inset:0; background:linear-gradient(to top, rgba(0,0,0,0.25), transparent); opacity:0; transition:0.4s;}
+.photo-card:hover::after {opacity:1;}
+.lightbox {position:fixed; display:none; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.85); justify-content:center; align-items:center; z-index:2000;}
+.lightbox img {max-width:85%; max-height:85%; border-radius:20px; animation:fadeIn 0.3s ease;}
+@keyframes fadeIn {from{opacity:0; transform:scale(0.9);} to{opacity:1; transform:scale(1);}}
+.upload-wrapper {max-width:400px; margin:20px auto; text-align:center;}
+.upload-wrapper input, .upload-wrapper button {width:100%; padding:10px; margin:5px 0; border-radius:8px; border:1px solid #ccc;}
+.upload-wrapper button {border:none; background:linear-gradient(to right,#ff7aa2,#ff4f81); color:white; font-weight:bold; cursor:pointer;}
+#uploadStatus {font-weight:bold;}
 </style>
 </head>
 <body>
 
 <nav>
-    <div class="logo">
-        <img src="Z.jpg" alt="logo">
-        <a href="#">Our Photo</a>
-    </div>
-    <ul id="nav-links">
-        <li><a href="https://www.instagram.com/vapoumbreon?igsh=MWRndmlpMXBlZnc5Ng==">Instagram</a></li>
-        <li><a href="video.html">Video</a></li>
-        <li><a href="music.html">Music</a></li>
-        <li><a href="index.html">Home</a></li>
-    </ul>
-    <div class="menu-toggle" onclick="toggleMenu()">
-        <div></div><div></div><div></div>
-    </div>
+  <div class="logo"><img src="Z.jpg" alt="logo"><a href="#">Our Photo</a></div>
+  <ul id="nav-links">
+    <li><a href="https://www.instagram.com/vapoumbreon?igsh=MWRndmlpMXBlZnc5Ng==">Instagram</a></li>
+    <li><a href="video.html">Video</a></li>
+    <li><a href="music.html">Music</a></li>
+    <li><a href="index.html">Home</a></li>
+  </ul>
+  <div class="menu-toggle" onclick="toggleMenu()"><div></div><div></div><div></div></div>
 </nav>
 
 <h1>OUR SWEET MEMORIES</h1>
 
-<!-- Upload Section -->
-<div class="upload-wrapper" style="max-width:400px; margin:20px auto; text-align:center;">
-  <h3> Upload Your Photo</h3>
-  <input type="password" id="uploadPassword" placeholder="Enter Password" style="width:100%; padding:10px; margin:5px 0; border-radius:8px; border:1px solid #ccc;">
-  <input type="file" id="fileInput" accept="image/*" style="width:100%; padding:10px; margin:5px 0; border-radius:8px; border:1px solid #ccc;">
-  <button id="uploadBtn" style="width:100%; padding:10px; margin:10px 0; border:none; border-radius:8px; background:linear-gradient(to right,#ff7aa2,#ff4f81); color:white; font-weight:bold; cursor:pointer;">Upload</button>
-  <p id="uploadStatus" style="font-weight:bold;"></p>
+<div class="upload-wrapper">
+  <h3>Upload Your Photo</h3>
+  <input type="password" id="uploadPassword" placeholder="Enter Password">
+  <input type="file" id="fileInput" accept="image/*">
+  <button onclick="uploadPhoto()">Upload</button>
+  <p id="uploadStatus"></p>
 </div>
 
-<!-- Existing Gallery -->
 <div class="gallery">
-    <div class="photo-card" onclick="openLightbox('Z.jpg')"><img src="Z.jpg"></div>
-    <div class="photo-card" onclick="openLightbox('2.jpg')"><img src="2.jpg"></div>
-    <div class="photo-card" onclick="openLightbox('3.jpg')"><img src="3.jpg"></div>
-    <div class="photo-card" onclick="openLightbox('4.jpg')"><img src="4.jpg"></div>
-    <div class="photo-card" onclick="openLightbox('5.jpg')"><img src="5.jpg"></div>
+  <div class="photo-card" onclick="openLightbox('Z.jpg')"><img src="Z.jpg"></div>
+  <div class="photo-card" onclick="openLightbox('2.jpg')"><img src="2.jpg"></div>
+  <div class="photo-card" onclick="openLightbox('3.jpg')"><img src="3.jpg"></div>
+  <div class="photo-card" onclick="openLightbox('4.jpg')"><img src="4.jpg"></div>
 </div>
 
 <div class="lightbox" id="lightbox" onclick="closeLightbox()">
-    <img id="lightbox-img">
+  <img id="lightbox-img">
 </div>
 
 <script type="module">
@@ -178,7 +80,7 @@ const firebaseConfig = {
   apiKey: "AIzaSyAoLxkrscN6sBUXAVc3ZRp2GRCb7kPkuVI",
   authDomain: "love-storage-e3fa8.firebaseapp.com",
   projectId: "love-storage-e3fa8",
-  storageBucket: "love-storage-e3fa8.firebasestorage.app",
+  storageBucket: "love-storage-e3fa8.appspot.com", // pastikan .appspot.com
   messagingSenderId: "123681764269",
   appId: "1:123681764269:web:acfee7e0204b130af9e724",
   measurementId: "G-04R21W3M1R"
@@ -190,47 +92,46 @@ const db = getFirestore(app);
 
 const PASSWORD = "NagZzor2325";
 
-window.addEventListener('DOMContentLoaded', async () => {
+const gallery = document.querySelector(".gallery");
+const status = document.getElementById("uploadStatus");
 
-  const gallery = document.querySelector(".gallery");
-  const status = document.getElementById("uploadStatus");
+async function uploadPhoto() {
+  const password = document.getElementById("uploadPassword").value;
+  const file = document.getElementById("fileInput").files[0];
+  if(password !== PASSWORD){ alert("Wrong password!"); return; }
+  if(!file){ alert("Select a file!"); return; }
 
-  document.getElementById("uploadBtn").addEventListener('click', async () => {
-    const password = document.getElementById("uploadPassword").value;
-    const file = document.getElementById("fileInput").files[0];
+  const storageRef = ref(storage, `gallery/${Date.now()}_${file.name}`);
+  const uploadTask = uploadBytesResumable(storageRef, file);
 
-    if(password !== PASSWORD) { alert("Wrong password!"); return; }
-    if(!file) { alert("Select a file!"); return; }
+  status.textContent = "Uploading... 0%";
 
-    const storageRef = ref(storage, `gallery/${Date.now()}_${file.name}`);
-    const uploadTask = uploadBytesResumable(storageRef, file);
-
-    status.textContent = "Uploading... 0%";
-
-    uploadTask.on('state_changed', snapshot => {
+  uploadTask.on('state_changed', 
+    snapshot => {
       const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
       status.textContent = `Uploading... ${Math.floor(progress)}%`;
-    }, error => {
+    }, 
+    error => {
       console.error(error);
       status.textContent = "Upload failed!";
-    }, async () => {
+    }, 
+    async () => {
       const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
       status.textContent = "Upload complete!";
-
       await addDoc(collection(db, "photos"), { url: downloadURL, uploadedAt: serverTimestamp() });
-
       const card = document.createElement("div");
       card.className = "photo-card";
       card.setAttribute("onclick", `openLightbox('${downloadURL}')`);
       card.innerHTML = `<img src="${downloadURL}">`;
       gallery.prepend(card);
-
       document.getElementById("fileInput").value = "";
       document.getElementById("uploadPassword").value = "";
-    });
-  });
+    }
+  );
+}
 
-  // Load foto dari Firestore (baru saja diupload)
+// Load existing photos from Firestore
+window.addEventListener('DOMContentLoaded', async () => {
   const snapshot = await getDocs(collection(db, "photos"));
   snapshot.forEach(doc => {
     const data = doc.data();
@@ -240,22 +141,17 @@ window.addEventListener('DOMContentLoaded', async () => {
     card.innerHTML = `<img src="${data.url}">`;
     gallery.appendChild(card);
   });
-
 });
 
-// Lightbox global
-window.openLightbox = function(src) {
+// Lightbox
+window.openLightbox = function(src){
   const lightbox = document.getElementById("lightbox");
   lightbox.style.display = "flex";
   document.getElementById("lightbox-img").src = src;
 };
-window.closeLightbox = function() {
-  document.getElementById("lightbox").style.display = "none";
-};
+window.closeLightbox = function(){ document.getElementById("lightbox").style.display = "none"; };
 
-function toggleMenu() {
-    document.getElementById("nav-links").classList.toggle("active");
-}
+function toggleMenu(){document.getElementById("nav-links").classList.toggle("active");}
 </script>
 
 </body>
