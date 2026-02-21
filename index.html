@@ -173,6 +173,15 @@ nav ul li a:hover {
     color: gray;
     margin-top: 5px;
 }
+
+.spotify-embed {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap; /* supaya tetap rapi di HP */
+}
+
 </style>
 </head>
 <body>
@@ -204,16 +213,22 @@ nav ul li a:hover {
     <h2>Our Memories in a Box</h2>
 
     <div class="spotify-embed">
-        <iframe 
-            src="https://open.spotify.com/embed/playlist/5b2tUBT9L9tz3cz8R5kQnT"
+    <iframe 
+        src="https://open.spotify.com/embed/playlist/5b2tUBT9L9tz3cz8R5kQnT"
+        width="250"
+        height="300"
+        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture">
+    </iframe>
 
-src="https://open.spotify.com/embed/playlist/4MoMHCRJSEdL7in3Whx4bR?si=sqC6HucTQJeFcrdZul7WGg"
+    <iframe 
+        src="https://open.spotify.com/embed/playlist/4MoMHCRJSEdL7in3Whx4bR"
+        width="250"
+        height="300"
+        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture">
+    </iframe>
+</div>
 
-            width="300"
-            height="380"
-            allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture">
-        </iframe>
-    </div>
+
 </div>
 
 <!-- LOVE NOTES -->
