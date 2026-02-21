@@ -21,84 +21,120 @@ body {
     text-align: center;
 }
 
-/* NAV */
+/* NAVBAR */
 
 nav {
-‎    background: white;
-‎    display: flex;
-‎    justify-content: space-between;
-‎    align-items: center;
-‎    padding: 1rem 2rem;
-‎    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-‎    position: sticky;
-‎    top: 0;
-‎    z-index: 1000;
-‎}
-‎
-‎.logo {
-‎    display: flex;
-‎    align-items: center;
-‎    gap: 10px;
-‎}
-‎
-‎.logo img {
-‎    width: 45px;
-‎    border-radius: 50%;
-‎}
-‎
-‎.logo a {
-‎    text-decoration: none;
-‎    font-weight: bold;
-‎    font-size: 18px;
-‎    color: skyblue;
-‎}
-‎
-‎nav ul {
-‎    display: flex;
-‎    gap: 1.5rem;
-‎    list-style: none;
-‎}
-‎
-‎nav ul li a {
-‎    text-decoration: none;
-‎    color: black;
-‎    font-weight: 600;
-‎}
-‎
-‎.menu-toggle {
-‎    display: none;
-‎    flex-direction: column;
-‎    cursor: pointer;
-‎}
-‎
-‎.menu-toggle div {
-‎    width: 25px;
-‎    height: 3px;
-‎    background: black;
-‎    margin: 4px;
-‎}
-‎
-‎@media (max-width: 768px) {
-‎    nav ul {
-‎        position: absolute;
-‎        top: 70px;
-‎        right: 0;
-‎        background: white;
-‎        flex-direction: column;
-‎        width: 200px;
-‎        text-align: center;
-‎        padding: 20px 0;
-‎        display: none;
-‎    }
-‎
-‎    nav ul.active {
-‎        display: flex;
-‎    }
-‎
-‎    .menu-toggle {
-‎        display: flex;
-‎    }
-‎}
+    background: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.logo img {
+    width: 45px;
+    height: 45px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.logo a {
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 18px;
+    color: #2c5364;
+}
+
+nav ul {
+    display: flex;
+    gap: 1.5rem;
+    list-style: none;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: #333;
+    font-weight: 600;
+    position: relative;
+    transition: 0.3s;
+}
+
+/* Hover underline effect */
+nav ul li a::after {
+    content: "";
+    position: absolute;
+    width: 0%;
+    height: 2px;
+    bottom: -4px;
+    left: 0;
+    background: #2c5364;
+    transition: 0.3s;
+}
+
+nav ul li a:hover::after {
+    width: 100%;
+}
+
+.menu-toggle {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+}
+
+.menu-toggle div {
+    width: 25px;
+    height: 3px;
+    background: #333;
+    margin: 4px 0;
+    transition: 0.3s;
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+    nav ul {
+        position: absolute;
+        top: 70px;
+        right: 0;
+        background: white;
+        flex-direction: column;
+        width: 220px;
+        text-align: center;
+        padding: 20px 0;
+        display: none;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        border-radius: 10px 0 0 10px;
+        animation: slideDown 0.3s ease;
+    }
+
+    nav ul.active {
+        display: flex;
+    }
+
+    .menu-toggle {
+        display: flex;
+    }
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
 
 /* TITLE */
 h1 {
@@ -247,6 +283,11 @@ function closeModal() {
     modal.style.display = "none";
     modalVideo.pause();
 }
+
+function toggleMenu() {
+    document.getElementById("nav-links").classList.toggle("active");
+}
+
 </script>
 
 </body>
