@@ -13,7 +13,7 @@
     font-family: Arial, sans-serif;
 }
 
-/* ===== NAVBAR ===== */
+/* ================= NAVBAR ================= */
 
 nav {
     background: white;
@@ -47,6 +47,7 @@ nav {
     color: #2c5364;
 }
 
+/* NAV LINKS */
 nav ul {
     display: flex;
     gap: 1.5rem;
@@ -76,6 +77,7 @@ nav ul li a:hover::after {
     width: 100%;
 }
 
+/* MOBILE TOGGLE */
 .menu-toggle {
     display: none;
     flex-direction: column;
@@ -87,10 +89,36 @@ nav ul li a:hover::after {
     height: 3px;
     background: #333;
     margin: 4px 0;
+    transition: 0.3s;
 }
 
+/* RESPONSIVE */
+@media (max-width: 768px) {
 
-/* ===== BODY ===== */
+    nav ul {
+        position: absolute;
+        top: 70px;
+        right: 0;
+        background: white;
+        flex-direction: column;
+        width: 220px;
+        text-align: center;
+        padding: 20px 0;
+        display: none;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    }
+
+    nav ul.active {
+        display: flex;
+    }
+
+    .menu-toggle {
+        display: flex;
+    }
+}
+
+/* ================= BODY ================= */
+
 body {
     background: white;
     min-height: 100vh;
@@ -99,7 +127,7 @@ body {
     overflow-x: hidden;
 }
 
-/* ===== SILUET ===== */
+/* SILUET */
 body::before {
     content: "";
     position: fixed;
@@ -114,7 +142,7 @@ body::before {
     z-index: -1;
 }
 
-/* ===== TITLE ===== */
+/* TITLE */
 h1 {
     text-align: center;
     padding: 30px 0;
@@ -122,7 +150,7 @@ h1 {
     letter-spacing: 2px;
 }
 
-/* ===== GALLERY ===== */
+/* GALLERY */
 .gallery {
     width: 92%;
     max-width: 1300px;
@@ -132,7 +160,7 @@ h1 {
     gap: 30px;
 }
 
-/* ===== PHOTO CARD ===== */
+/* PHOTO CARD */
 .photo-card {
     position: relative;
     border-radius: 25px;
@@ -173,7 +201,7 @@ h1 {
     opacity: 1;
 }
 
-/* ===== LIGHTBOX ===== */
+/* LIGHTBOX */
 .lightbox {
     position: fixed;
     display: none;
@@ -199,16 +227,11 @@ h1 {
     to { opacity: 1; transform: scale(1); }
 }
 
-/* ===== RESPONSIVE ===== */
 @media (max-width: 768px) {
     body::before {
         width: 350px;
         height: 500px;
         opacity: 0.04;
-    }
-
-    .nav-links {
-        gap: 15px;
     }
 }
 </style>
@@ -217,61 +240,40 @@ h1 {
 <body>
 
 <nav>
-‎    <div class="logo">
-‎        <img src="Z.jpg" alt="logo">
-‎        <a href="#">Our photo</a>
-‎    </div>
-‎
-‎    <ul id="nav-links">
-‎        <li><a href="https://www.instagram.com/vapoumbreon?igsh=MWRndmlpMXBlZnc5Ng==">Instagram</a></li>
-‎        <li><a href="video.html">Video</a></li>
-‎        <li><a href="photo.html">Photo</a></li>
-‎        <li><a href="music.html">Music</a></li>
+    <div class="logo">
+        <img src="Z.jpg" alt="logo">
+        <a href="#">Our Photo</a>
+    </div>
+
+    <ul id="nav-links">
+        <li><a href="https://www.instagram.com/vapoumbreon?igsh=MWRndmlpMXBlZnc5Ng==">Instagram</a></li>
+        <li><a href="video.html">Video</a></li>
+        <li><a href="photo.html">Photo</a></li>
+        <li><a href="music.html">Music</a></li>
         <li><a href="index.html">Home</a></li>
-‎    </ul>
-‎
-‎    <div class="menu-toggle" onclick="toggleMenu()">
-‎        <div></div>
-‎        <div></div>
-‎        <div></div>
-‎    </div>
-‎</nav>
+    </ul>
+
+    <div class="menu-toggle" onclick="toggleMenu()">
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+</nav>
+
 <h1>OUR SWEET MEMORIES</h1>
 
 <div class="gallery">
-    <div class="photo-card" onclick="openLightbox('Z.jpg')">
-        <img src="Z.jpg">
-    </div>
-    <div class="photo-card" onclick="openLightbox('2.jpg')">
-        <img src="2.jpg">
-    </div>
-    <div class="photo-card" onclick="openLightbox('3.jpg')">
-        <img src="3.jpg">
-    </div>
-    <div class="photo-card" onclick="openLightbox('4.jpg')">
-        <img src="4.jpg">
-    </div>
-    <div class="photo-card" onclick="openLightbox('5.jpg')">
-        <img src="5.jpg">
-    </div>
-    <div class="photo-card" onclick="openLightbox('6.jpg')">
-        <img src="6.jpg">
-    </div>
-    <div class="photo-card" onclick="openLightbox('7.jpg')">
-        <img src="7.jpg">
-    </div>
-    <div class="photo-card" onclick="openLightbox('8.jpg')">
-        <img src="8.jpg">
-    </div>
-    <div class="photo-card" onclick="openLightbox('9.jpg')">
-        <img src="9.jpg">
-    </div>
-    <div class="photo-card" onclick="openLightbox('10.jpg')">
-        <img src="10.jpg">
-    </div>
-    <div class="photo-card" onclick="openLightbox('11.jpg')">
-        <img src="11.jpg">
-    </div>
+    <div class="photo-card" onclick="openLightbox('Z.jpg')"><img src="Z.jpg"></div>
+    <div class="photo-card" onclick="openLightbox('2.jpg')"><img src="2.jpg"></div>
+    <div class="photo-card" onclick="openLightbox('3.jpg')"><img src="3.jpg"></div>
+    <div class="photo-card" onclick="openLightbox('4.jpg')"><img src="4.jpg"></div>
+    <div class="photo-card" onclick="openLightbox('5.jpg')"><img src="5.jpg"></div>
+    <div class="photo-card" onclick="openLightbox('6.jpg')"><img src="6.jpg"></div>
+    <div class="photo-card" onclick="openLightbox('7.jpg')"><img src="7.jpg"></div>
+    <div class="photo-card" onclick="openLightbox('8.jpg')"><img src="8.jpg"></div>
+    <div class="photo-card" onclick="openLightbox('9.jpg')"><img src="9.jpg"></div>
+    <div class="photo-card" onclick="openLightbox('10.jpg')"><img src="10.jpg"></div>
+    <div class="photo-card" onclick="openLightbox('11.jpg')"><img src="11.jpg"></div>
 </div>
 
 <div class="lightbox" id="lightbox" onclick="closeLightbox()">
@@ -291,7 +293,6 @@ function closeLightbox() {
 function toggleMenu() {
     document.getElementById("nav-links").classList.toggle("active");
 }
-
 </script>
 
 </body>
