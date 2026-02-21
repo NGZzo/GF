@@ -41,14 +41,11 @@ nav {
     border-radius: 50%;
 }
 
-.logo span {
+.logo a {
+    text-decoration: none;
     font-weight: bold;
     font-size: 18px;
     color: skyblue;
-}
-
-.logo a {
-    text-decoration: none;
 }
 
 nav ul {
@@ -61,11 +58,6 @@ nav ul li a {
     text-decoration: none;
     color: black;
     font-weight: 600;
-    transition: 0.3s;
-}
-
-nav ul li a:hover {
-    color: skyblue;
 }
 
 .menu-toggle {
@@ -92,7 +84,6 @@ nav ul li a:hover {
         text-align: center;
         padding: 20px 0;
         display: none;
-        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
     }
 
     nav ul.active {
@@ -104,6 +95,7 @@ nav ul li a:hover {
     }
 }
 
+/* CONTENT */
 .container {
     padding: 40px 20px;
     text-align: center;
@@ -185,10 +177,8 @@ nav ul li a:hover {
 }
 
 .note-card {
-    background: #fff0f5;
     padding: 15px;
     border-radius: 15px;
-    position: relative;
 }
 
 .note-card.nagata {
@@ -201,18 +191,9 @@ nav ul li a:hover {
     border-left: 6px solid #4dc3ff;
 }
 
-.note-card strong {
-    display: block;
-    margin-bottom: 5px;
-}
-
 .note-date {
     font-size: 11px;
     color: gray;
-}
-
-.heart {
-    margin-left: 5px;
 }
 </style>
 </head>
@@ -222,7 +203,7 @@ nav ul li a:hover {
 <nav>
     <div class="logo">
         <img src="Z.jpg" alt="logo">
-        <a href="#"><span>Memory Keeper</span></a>
+        <a href="#">Memory Keeper</a>
     </div>
 
     <ul id="nav-links">
@@ -269,7 +250,7 @@ nav ul li a:hover {
     <div id="notesContainer"></div>
 </div>
 
-<!-- FIREBASE CDN -->
+<!-- FIREBASE -->
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
 
@@ -280,7 +261,8 @@ const firebaseConfig = {
   projectId: "love-storage-e3fa8",
   storageBucket: "love-storage-e3fa8.firebasestorage.app",
   messagingSenderId: "123681764269",
-  appId: "1:123681764269:web:a6fea729c43aabdef9e724"
+  appId: "1:123681764269:web:a6fea729c43aabdef9e724",
+  measurementId: "G-F9TR4GT5K8"
 };
 
 firebase.initializeApp(firebaseConfig);
@@ -319,8 +301,7 @@ function addNote() {
     db.collection("loveNotes").add({
         text: text,
         author: author,
-        date: date,
-        timestamp: firebase.firestore.FieldValue.serverTimestamp()
+        date: date
     });
 
     noteInput.value = "";
@@ -335,7 +316,7 @@ function createNote(text, date, author) {
     const name = author === "nagata" ? "Nagata" : "Zzoraa";
 
     card.innerHTML = `
-        <strong>${name} <span class="heart">${heart}</span></strong>
+        <strong>${name} ${heart}</strong>
         <p>${text}</p>
         <div class="note-date">${date}</div>
     `;
@@ -344,7 +325,6 @@ function createNote(text, date, author) {
 }
 
 db.collection("loveNotes")
-.orderBy("timestamp", "desc")
 .onSnapshot(snapshot => {
     notesContainer.innerHTML = "";
 
