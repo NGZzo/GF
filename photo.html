@@ -89,45 +89,51 @@ h1 {
 
 /* ===== GALLERY ===== */
 .gallery {
-    width: 90%;
-    max-width: 1200px;
-    margin: auto;
+    width: 92%;
+    max-width: 1300px;
+    margin: 0 auto 80px auto;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 25px;
-    padding-bottom: 50px;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 30px;
 }
 
+/* ===== PHOTO CARD ===== */
 .photo-card {
     position: relative;
+    border-radius: 25px;
     overflow: hidden;
-    border-radius: 20px;
     cursor: pointer;
-    transition: 0.4s ease;
+    background: #f8f8f8;
+    aspect-ratio: 3/4; /* bikin semua ukuran konsisten */
+    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+    transition: all 0.4s ease;
 }
 
 .photo-card img {
     width: 100%;
-    display: block;
-    transition: 0.4s ease;
+    height: 100%;
+    object-fit: cover; /* penting supaya tidak gepeng */
+    transition: transform 0.5s ease;
+}
+
+/* Hover effect premium */
+.photo-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.15);
 }
 
 .photo-card:hover img {
-    transform: scale(1.1);
+    transform: scale(1.08);
 }
 
+/* Overlay subtle */
 .photo-card::after {
-    content: "View";
+    content: "";
     position: absolute;
-    bottom: 15px;
-    left: 15px;
-    background: rgba(0,0,0,0.6);
-    color: white;
-    padding: 5px 12px;
-    border-radius: 20px;
-    font-size: 12px;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.25), transparent);
     opacity: 0;
-    transition: 0.3s;
+    transition: 0.4s;
 }
 
 .photo-card:hover::after {
