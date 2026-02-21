@@ -17,12 +17,10 @@ body {
     background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
     color: white;
     min-height: 100vh;
-    padding: 40px 20px;
     text-align: center;
 }
 
 /* NAVBAR */
-
 nav {
     background: white;
     display: flex;
@@ -69,7 +67,6 @@ nav ul li a {
     transition: 0.3s;
 }
 
-/* Hover underline effect */
 nav ul li a::after {
     content: "";
     position: absolute;
@@ -96,7 +93,6 @@ nav ul li a:hover::after {
     height: 3px;
     background: #333;
     margin: 4px 0;
-    transition: 0.3s;
 }
 
 /* MOBILE */
@@ -113,7 +109,6 @@ nav ul li a:hover::after {
         display: none;
         box-shadow: 0 10px 25px rgba(0,0,0,0.1);
         border-radius: 10px 0 0 10px;
-        animation: slideDown 0.3s ease;
     }
 
     nav ul.active {
@@ -125,21 +120,9 @@ nav ul li a:hover::after {
     }
 }
 
-@keyframes slideDown {
-    from {
-        opacity: 0;
-        transform: translateY(-10px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-/* TITLE */
-h1 {
-    margin-bottom: 40px;
-    letter-spacing: 2px;
+/* CONTENT WRAPPER */
+.content {
+    padding: 40px 20px;
 }
 
 /* GRID */
@@ -177,7 +160,6 @@ h1 {
     transform: scale(1.05);
 }
 
-/* Play icon overlay */
 .video-card::after {
     content: "▶";
     position: absolute;
@@ -212,12 +194,6 @@ h1 {
     max-width: 90%;
     max-height: 90%;
     border-radius: 20px;
-    animation: fadeIn 0.3s ease;
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; transform: scale(0.9); }
-    to { opacity: 1; transform: scale(1); }
 }
 </style>
 </head>
@@ -225,43 +201,46 @@ h1 {
 <body>
 
 <nav>
-‎    <div class="logo">
-‎        <img src="Z.jpg" alt="logo">
-‎        <a href="#">Our Video</a>
-‎    </div>
-‎
-‎    <ul id="nav-links">
-‎        <li><a href="https://www.instagram.com/vapoumbreon?igsh=MWRndmlpMXBlZnc5Ng==">Instagram</a></li>
-‎        <li><a href="video.html">Video</a></li>
-‎        <li><a href="photo.html">Photo</a></li>
-‎        <li><a href="music.html">Music</a></li>
-‎    </ul>
-‎
-‎    <div class="menu-toggle" onclick="toggleMenu()">
-‎        <div></div>
-‎        <div></div>
-‎        <div></div>
-‎    </div>
-‎</nav>
+    <div class="logo">
+        <img src="Z.jpg" alt="logo">
+        <a href="#">Our Video</a>
+    </div>
 
-<div class="video-grid">
-   <div class="video-card" onclick="openModal('part1.mp4')">
-        <video src="part1.mp4" muted></video>
+    <ul id="nav-links">
+        <li><a href="https://www.instagram.com/vapoumbreon?igsh=MWRndmlpMXBlZnc5Ng==">Instagram</a></li>
+        <li><a href="video.html">Video</a></li>
+        <li><a href="photo.html">Photo</a></li>
+        <li><a href="music.html">Music</a></li>
+        <li><a href="index.html">Home</a></li>
+    </ul>
+
+    <div class="menu-toggle" onclick="toggleMenu()">
+        <div></div>
+        <div></div>
+        <div></div>
     </div>
-   <div class="video-card" onclick="openModal('part2.mp4')">
-        <video src="part2.mp4" muted></video>
-    </div>
-   <div class="video-card" onclick="openModal('part3.mp4')">
-        <video src="part3.mp4" muted></video>
-    </div>
-   <div class="video-card" onclick="openModal('part4.mp4')">
-        <video src="part4.mp4" muted></video>
-    </div>
-   <div class="video-card" onclick="openModal('part5.mp4')">
-        <video src="part5.mp4" muted></video>
-    </div>
-   <div class="video-card" onclick="openModal('part6.mp4')">
-        <video src="part6.mp4" muted></video>
+</nav>
+
+<div class="content">
+    <div class="video-grid">
+        <div class="video-card" onclick="openModal('part1.mp4')">
+            <video src="part1.mp4" muted></video>
+        </div>
+        <div class="video-card" onclick="openModal('part2.mp4')">
+            <video src="part2.mp4" muted></video>
+        </div>
+        <div class="video-card" onclick="openModal('part3.mp4')">
+            <video src="part3.mp4" muted></video>
+        </div>
+        <div class="video-card" onclick="openModal('part4.mp4')">
+            <video src="part4.mp4" muted></video>
+        </div>
+        <div class="video-card" onclick="openModal('part5.mp4')">
+            <video src="part5.mp4" muted></video>
+        </div>
+        <div class="video-card" onclick="openModal('part6.mp4')">
+            <video src="part6.mp4" muted></video>
+        </div>
     </div>
 </div>
 
@@ -287,7 +266,6 @@ function closeModal() {
 function toggleMenu() {
     document.getElementById("nav-links").classList.toggle("active");
 }
-
 </script>
 
 </body>
