@@ -109,7 +109,6 @@ nav ul li a:hover {
     color: white;
 }
 
-
 /* ===== LOVE NOTES ===== */
 .notes-wrapper {
     max-width: 400px;
@@ -172,21 +171,20 @@ nav ul li a:hover {
 }
 
 .spotify-embed {
-    margin-top: 10px;
+    margin-top: 20px;
     display: flex;
     justify-content: center;
     gap: 10px;
-    flex-wrap: wrap; /* supaya tetap rapi di HP */
+    flex-wrap: wrap;
 }
 
 .spotify-embed iframe {
     border: none;
     border-radius: 15px;
-    overflow: hidden;
 }
-
 </style>
 </head>
+
 <body>
 
 <!-- NAVBAR -->
@@ -210,28 +208,22 @@ nav ul li a:hover {
     </div>
 </nav>
 
-<!-- MAIN CONTENT -->
+<!-- MAIN -->
 <div class="container">
     <h1>Welcome to the Memory Keeper</h1>
     <h2>Our Memories in a Box</h2>
 
     <div class="spotify-embed">
-    <iframe 
-        src="https://open.spotify.com/embed/playlist/5b2tUBT9L9tz3cz8R5kQnT"
-        width="280"
-        height="300"
-        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture">
-    </iframe>
+        <iframe src="https://open.spotify.com/embed/playlist/5b2tUBT9L9tz3cz8R5kQnT"
+            width="280" height="300"
+            allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture">
+        </iframe>
 
-    <iframe 
-        src="https://open.spotify.com/embed/playlist/4MoMHCRJSEdL7in3Whx4bR"
-        width="280"
-        height="300"
-        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture">
-    </iframe>
-</div>
-
-
+        <iframe src="https://open.spotify.com/embed/playlist/4MoMHCRJSEdL7in3Whx4bR"
+            width="280" height="300"
+            allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture">
+        </iframe>
+    </div>
 </div>
 
 <!-- LOVE NOTES -->
@@ -247,30 +239,63 @@ nav ul li a:hover {
 </div>
 
 <script>
+const notesContainer = document.getElementById("notesContainer");
+const noteInput = document.getElementById("noteText");
+
+/* ===== LOAD NOTES SAAT WEB DIBUKA ===== */
+window.onload = function() {
+    const savedNotes = JSON.parse(localStorage.getItem("loveNotes")) || [];
+    savedNotes.forEach(note => createNote(note.text, note.date));
+};
+
+/* ===== TOGGLE MENU ===== */
 function toggleMenu() {
     document.getElementById("nav-links").classList.toggle("active");
 }
 
+/* ===== TAMBAH NOTE ===== */
 function addNote() {
-    const text = document.getElementById("noteText").value;
+    const text = noteInput.value.trim();
     if(text === "") return;
 
-    const container = document.getElementById("notesContainer");
+    const date = new Date().toLocaleString();
+    createNote(text, date);
+    saveNote(text, date);
 
+    noteInput.value = "";
+}
+
+/* ===== BUAT CARD NOTE ===== */
+function createNote(text, date) {
     const card = document.createElement("div");
     card.className = "note-card";
 
-    const date = new Date().toLocaleString();
-
     card.innerHTML = `
-        <span class="delete-btn" onclick="this.parentElement.remove()">X</span>
+        <span class="delete-btn">X</span>
         <p>${text}</p>
         <div class="note-date">${date}</div>
     `;
 
-    container.prepend(card);
+    card.querySelector(".delete-btn").onclick = function() {
+        deleteNote(text, date);
+        card.remove();
+    };
 
-    document.getElementById("noteText").value = "";
+    notesContainer.prepend(card);
+}
+
+/* ===== SIMPAN KE LOCAL STORAGE ===== */
+function saveNote(text, date) {
+    const notes = JSON.parse(localStorage.getItem("loveNotes")) || [];
+    notes.push({ text, date });
+    localStorage.setItem("loveNotes", JSON.stringify(notes));
+}
+
+/* ===== HAPUS DARI LOCAL STORAGE ===== */
+function deleteNote(text, date) {
+    let notes = JSON.parse(localStorage.getItem("loveNotes")) || [];
+    notes = notes.filter(note => !(note.text === text && note.date === date));
+    localStorage.setItem("loveNotes", JSON.stringify(notes));
 }
 </script>
 
