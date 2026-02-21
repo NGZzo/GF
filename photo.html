@@ -13,126 +13,61 @@
     font-family: Arial, sans-serif;
 }
 
-/* NAVBAR */
-
+/* ===== NAVBAR ===== */
 nav {
-    background: white;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    padding: 15px 40px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1rem 2rem;
+    background: rgba(120,120,120,0.85);
+    backdrop-filter: blur(8px);
     box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-    position: sticky;
-    top: 0;
     z-index: 1000;
 }
 
 .logo {
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.nav-links {
     display: flex;
-    align-items: center;
-    gap: 10px;
+    gap: 25px;
 }
 
-.logo img {
-    width: 45px;
-    height: 45px;
-    object-fit: cover;
-    border-radius: 50%;
-}
-
-.logo a {
+.nav-links a {
+    color: white;
     text-decoration: none;
     font-weight: bold;
-    font-size: 18px;
-    color: #2c5364;
-}
-
-nav ul {
-    display: flex;
-    gap: 1.5rem;
-    list-style: none;
-}
-
-nav ul li a {
-    text-decoration: none;
-    color: #333;
-    font-weight: 600;
     position: relative;
     transition: 0.3s;
 }
 
-/* Hover underline effect */
-nav ul li a::after {
+.nav-links a::after {
     content: "";
     position: absolute;
     width: 0%;
     height: 2px;
-    bottom: -4px;
+    background: white;
     left: 0;
-    background: #2c5364;
+    bottom: -5px;
     transition: 0.3s;
 }
 
-nav ul li a:hover::after {
+.nav-links a:hover::after {
     width: 100%;
-}
-
-.menu-toggle {
-    display: none;
-    flex-direction: column;
-    cursor: pointer;
-}
-
-.menu-toggle div {
-    width: 25px;
-    height: 3px;
-    background: #333;
-    margin: 4px 0;
-    transition: 0.3s;
-}
-
-/* MOBILE */
-@media (max-width: 768px) {
-    nav ul {
-        position: absolute;
-        top: 70px;
-        right: 0;
-        background: white;
-        flex-direction: column;
-        width: 220px;
-        text-align: center;
-        padding: 20px 0;
-        display: none;
-        box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-        border-radius: 10px 0 0 10px;
-        animation: slideDown 0.3s ease;
-    }
-
-    nav ul.active {
-        display: flex;
-    }
-
-    .menu-toggle {
-        display: flex;
-    }
-}
-
-@keyframes slideDown {
-    from {
-        opacity: 0;
-        transform: translateY(-10px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
 }
 
 /* ===== BODY ===== */
 body {
     background: white;
     min-height: 100vh;
-    padding-top: 80px;
+    padding-top: 90px;
     position: relative;
     overflow-x: hidden;
 }
@@ -177,7 +112,7 @@ h1 {
     overflow: hidden;
     cursor: pointer;
     background: #f8f8f8;
-    aspect-ratio: 3/4; /* bikin semua ukuran konsisten */
+    aspect-ratio: 3/4;
     box-shadow: 0 10px 25px rgba(0,0,0,0.08);
     transition: all 0.4s ease;
 }
@@ -185,11 +120,10 @@ h1 {
 .photo-card img {
     width: 100%;
     height: 100%;
-    object-fit: cover; /* penting supaya tidak gepeng */
+    object-fit: cover;
     transition: transform 0.5s ease;
 }
 
-/* Hover effect premium */
 .photo-card:hover {
     transform: translateY(-8px);
     box-shadow: 0 20px 40px rgba(0,0,0,0.15);
@@ -199,7 +133,6 @@ h1 {
     transform: scale(1.08);
 }
 
-/* Overlay subtle */
 .photo-card::after {
     content: "";
     position: absolute;
@@ -246,6 +179,10 @@ h1 {
         height: 500px;
         opacity: 0.04;
     }
+
+    .nav-links {
+        gap: 15px;
+    }
 }
 </style>
 </head>
@@ -253,25 +190,15 @@ h1 {
 <body>
 
 <nav>
-‎    <div class="logo">
-‎        <img src="Z.jpg" alt="logo">
-‎        <a href="#">Our photo</a>
-‎    </div>
-‎
-‎    <ul id="nav-links">
-‎        <li><a href="https://www.instagram.com/vapoumbreon?igsh=MWRndmlpMXBlZnc5Ng==">Instagram</a></li>
-‎        <li><a href="video.html">Video</a></li>
-‎        <li><a href="photo.html">Photo</a></li>
-‎        <li><a href="music.html">Music</a></li>
-        <li><a href="index.html">Home</a></li>
-‎    </ul>
-‎
-‎    <div class="menu-toggle" onclick="toggleMenu()">
-‎        <div></div>
-‎        <div></div>
-‎        <div></div>
-‎    </div>
-‎</nav>
+    <div class="logo">Memory Keeper</div>
+    <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="#">Gallery</a>
+        <a href="#">Love Notes</a>
+    </div>
+</nav>
+
+<h1>OUR SWEET MEMORIES</h1>
 
 <div class="gallery">
     <div class="photo-card" onclick="openLightbox('Z.jpg')">
@@ -301,10 +228,10 @@ h1 {
     <div class="photo-card" onclick="openLightbox('9.jpg')">
         <img src="9.jpg">
     </div>
-   <div class="photo-card" onclick="openLightbox('10.jpg')">
+    <div class="photo-card" onclick="openLightbox('10.jpg')">
         <img src="10.jpg">
     </div>
-   <div class="photo-card" onclick="openLightbox('11.jpg')">
+    <div class="photo-card" onclick="openLightbox('11.jpg')">
         <img src="11.jpg">
     </div>
 </div>
