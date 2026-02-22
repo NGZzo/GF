@@ -51,7 +51,6 @@ nav {
     color: #2c5364;
 }
 
-/* NAV LINKS */
 nav ul {
     display: flex;
     gap: 1.8rem;
@@ -66,7 +65,6 @@ nav ul li a {
     transition: 0.3s ease;
 }
 
-/* Underline animation */
 nav ul li a::after {
     content: "";
     position: absolute;
@@ -82,7 +80,6 @@ nav ul li a:hover::after {
     width: 100%;
 }
 
-/* HAMBURGER */
 .menu-toggle {
     display: none;
     flex-direction: column;
@@ -94,10 +91,8 @@ nav ul li a:hover::after {
     height: 3px;
     background: #333;
     margin: 4px 0;
-    transition: 0.3s;
 }
 
-/* RESPONSIVE */
 @media (max-width: 768px) {
 
     nav ul {
@@ -114,12 +109,12 @@ nav ul li a:hover::after {
         border-radius: 0 0 0 15px;
     }
 
-    nav ul li {
-        padding: 10px 0;
-    }
-
     nav ul.active {
         display: flex;
+    }
+
+    nav ul li {
+        padding: 10px 0;
     }
 
     .menu-toggle {
@@ -133,6 +128,46 @@ nav ul li a:hover::after {
     padding: 40px 20px;
     text-align: center;
     color: white;
+}
+
+/* ================= LOVE TIME COUNTER ================= */
+
+.love-day-box {
+    margin-top: 25px;
+    background: rgba(255,255,255,0.15);
+    backdrop-filter: blur(12px);
+    padding: 25px;
+    border-radius: 25px;
+    display: inline-block;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+}
+
+.love-day-box h3 {
+    font-size: 16px;
+    margin-bottom: 15px;
+    font-weight: 500;
+}
+
+.time-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+}
+
+.time-box {
+    background: rgba(255,255,255,0.25);
+    padding: 12px;
+    border-radius: 15px;
+}
+
+.time-box span {
+    display: block;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.time-box small {
+    font-size: 11px;
 }
 
 /* ================= NOTES ================= */
@@ -202,11 +237,6 @@ nav ul li a:hover::after {
     border-radius: 10px;
     cursor: pointer;
     font-weight: bold;
-    transition: 0.3s;
-}
-
-.note-input button:hover {
-    opacity: 0.9;
 }
 
 #notesContainer {
@@ -246,7 +276,7 @@ nav ul li a:hover::after {
     </div>
 
     <ul id="nav-links">
-        <li><a href="https://www.instagram.com/vapoumbreon?igsh=MWRndmlpMXBlZnc5Ng==">Instagram</a></li>
+        <li><a href="https://www.instagram.com/">Instagram</a></li>
         <li><a href="video.html">Video</a></li>
         <li><a href="photo.html">Photo</a></li>
         <li><a href="music.html">Music</a></li>
@@ -262,6 +292,16 @@ nav ul li a:hover::after {
 <div class="container">
     <h1>Welcome to the Memory Keeper</h1>
     <h2>Our Memories in a Box</h2>
+
+    <div class="love-day-box">
+        <h3>💞 Sudah bersama selama</h3>
+        <div class="time-grid">
+            <div class="time-box"><span id="days">0</span><small>Hari</small></div>
+            <div class="time-box"><span id="hours">0</span><small>Jam</small></div>
+            <div class="time-box"><span id="minutes">0</span><small>Menit</small></div>
+            <div class="time-box"><span id="seconds">0</span><small>Detik</small></div>
+        </div>
+    </div>
 </div>
 
 <div class="notes-wrapper">
@@ -290,98 +330,44 @@ nav ul li a:hover::after {
     <div id="notesContainer"></div>
 </div>
 
-<!-- FIREBASE -->
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
 
 <script>
 const firebaseConfig = {
-  apiKey: "AIzaSyAoLxkrscN6sBUXAVc3ZRp2GRCb7kPkuVI",
+  apiKey: "YOUR_API_KEY",
   authDomain: "love-storage-e3fa8.firebaseapp.com",
-  projectId: "love-storage-e3fa8",
-  storageBucket: "love-storage-e3fa8.firebasestorage.app",
-  messagingSenderId: "123681764269",
-  appId: "1:123681764269:web:a6fea729c43aabdef9e724",
-  measurementId: "G-F9TR4GT5K8"
+  projectId: "love-storage-e3fa8"
 };
 
 firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
 
-const notesContainer = document.getElementById("notesContainer");
-const noteInput = document.getElementById("noteText");
-const noteAuthor = document.getElementById("noteAuthor");
-const notePassword = document.getElementById("notePassword");
-const nagataCountEl = document.getElementById("nagataCount");
-const zzoraaCountEl = document.getElementById("zzoraaCount");
-
+/* NAV */
 function toggleMenu() {
     document.getElementById("nav-links").classList.toggle("active");
 }
 
-function addNote() {
-    const text = noteInput.value.trim();
-    const author = noteAuthor.value;
-    const password = notePassword.value;
+/* LOVE TIME REALTIME */
+const startDate = new Date("2025-08-21T06:30:00");
 
-    if(text === "") return;
+function updateLoveTime() {
+    const now = new Date();
+    const diff = now - startDate;
 
-    if(author === "nagata" && password !== "025") {
-        alert("Password Nagata salah!");
-        return;
-    }
+    const days = Math.floor(diff / (1000*60*60*24));
+    const hours = Math.floor((diff / (1000*60*60)) % 24);
+    const minutes = Math.floor((diff / (1000*60)) % 60);
+    const seconds = Math.floor((diff / 1000) % 60);
 
-    if(author === "zzoraa" && password !== "023") {
-        alert("Password Zzoraa salah!");
-        return;
-    }
-
-    const date = new Date().toLocaleString();
-
-    db.collection("loveNotes").add({
-        text: text,
-        author: author,
-        date: date
-    });
-
-    noteInput.value = "";
-    notePassword.value = "";
+    document.getElementById("days").textContent = days;
+    document.getElementById("hours").textContent = hours;
+    document.getElementById("minutes").textContent = minutes;
+    document.getElementById("seconds").textContent = seconds;
 }
 
-function createNote(text, date, author) {
-    const card = document.createElement("div");
-    card.className = `note-card ${author}`;
-
-    const heart = author === "nagata" ? "❤️" : "💙";
-    const name = author === "nagata" ? "Nagata" : "Zzoraa";
-
-    card.innerHTML = `
-        <strong>${name} ${heart}</strong>
-        <p>${text}</p>
-        <div class="note-date">${date}</div>
-    `;
-
-    notesContainer.appendChild(card);
-}
-
-db.collection("loveNotes")
-.onSnapshot(snapshot => {
-    notesContainer.innerHTML = "";
-
-    let nagataCount = 0;
-    let zzoraaCount = 0;
-
-    snapshot.forEach(doc => {
-        const note = doc.data();
-        createNote(note.text, note.date, note.author);
-
-        if(note.author === "nagata") nagataCount++;
-        if(note.author === "zzoraa") zzoraaCount++;
-    });
-
-    nagataCountEl.textContent = nagataCount;
-    zzoraaCountEl.textContent = zzoraaCount;
-});
+setInterval(updateLoveTime, 1000);
+updateLoveTime();
 </script>
 
 </body>
