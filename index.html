@@ -6,368 +6,209 @@
 <title>Memory Keeper</title>
 
 <style>
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: Arial, sans-serif;
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif;}
+body{background:linear-gradient(to right,#87ceeb,#b0e0ff);}
+
+/* NAVBAR */
+nav{background:white;display:flex;justify-content:space-between;align-items:center;padding:1rem 2rem;box-shadow:0 4px 15px rgba(0,0,0,0.08);position:sticky;top:0;z-index:1000;}
+.logo{display:flex;align-items:center;gap:10px;}
+.logo img{width:45px;height:45px;border-radius:50%;object-fit:cover;}
+.logo a{text-decoration:none;font-weight:bold;font-size:18px;color:#2c5364;}
+nav ul{display:flex;gap:1.8rem;list-style:none;}
+nav ul li a{text-decoration:none;color:#333;font-weight:600;position:relative;transition:0.3s;}
+nav ul li a::after{content:"";position:absolute;width:0;height:2px;left:0;bottom:-5px;background:#2c5364;transition:0.3s;}
+nav ul li a:hover::after{width:100%;}
+.menu-toggle{display:none;flex-direction:column;cursor:pointer;}
+.menu-toggle div{width:25px;height:3px;background:#333;margin:4px 0;}
+
+@media(max-width:768px){
+nav ul{position:absolute;top:70px;right:0;background:white;flex-direction:column;width:220px;text-align:center;padding:20px 0;display:none;box-shadow:0 10px 25px rgba(0,0,0,0.1);border-radius:0 0 0 15px;}
+nav ul.active{display:flex;}
+nav ul li{padding:10px 0;}
+.menu-toggle{display:flex;}
 }
 
-body {
-    background: linear-gradient(to right, #87ceeb, #b0e0ff);
-}
+/* CONTENT */
+.container{padding:40px 20px;text-align:center;color:white;}
 
-/* ================= NAVBAR ================= */
+.love-day-box{margin-top:25px;background:rgba(255,255,255,0.15);backdrop-filter:blur(12px);padding:25px;border-radius:25px;display:inline-block;box-shadow:0 10px 25px rgba(0,0,0,0.15);}
+.time-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;}
+.time-box{background:rgba(255,255,255,0.25);padding:12px;border-radius:15px;}
+.time-box span{display:block;font-size:20px;font-weight:bold;}
+.time-box small{font-size:11px;}
 
-nav {
-    background: white;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1rem 2rem;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-}
+/* NOTES */
+.notes-wrapper{max-width:600px;margin:60px auto;background:white;padding:25px;border-radius:20px;box-shadow:0 10px 25px rgba(0,0,0,0.1);}
+.notes-wrapper h2{text-align:center;margin-bottom:20px;color:#ff7aa2;}
 
-.logo {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
+.love-counter{display:flex;justify-content:space-between;margin-bottom:20px;gap:10px;}
+.counter-box{flex:1;padding:10px;border-radius:12px;text-align:center;font-weight:bold;font-size:14px;}
+.nagata-counter{background:#ffe5e5;color:#ff1a1a;}
+.zzoraa-counter{background:#e0f7ff;color:#0077b6;}
 
-.logo img {
-    width: 45px;
-    height: 45px;
-    border-radius: 50%;
-    object-fit: cover;
-}
+.note-input{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:20px;}
+.note-input select,.note-input input{flex:1;min-width:120px;padding:10px;border-radius:10px;border:1px solid #ddd;}
+.note-input button{padding:10px 16px;border:none;background:linear-gradient(to right,#ff7aa2,#ff4f81);color:white;border-radius:10px;cursor:pointer;font-weight:bold;}
 
-.logo a {
-    text-decoration: none;
-    font-weight: bold;
-    font-size: 18px;
-    color: #2c5364;
-}
+#notesContainer{display:flex;flex-direction:column;gap:15px;}
 
-nav ul {
-    display: flex;
-    gap: 1.8rem;
-    list-style: none;
-}
-
-nav ul li a {
-    text-decoration: none;
-    color: #333;
-    font-weight: 600;
-    position: relative;
-    transition: 0.3s ease;
-}
-
-nav ul li a::after {
-    content: "";
-    position: absolute;
-    width: 0%;
-    height: 2px;
-    left: 0;
-    bottom: -5px;
-    background: #2c5364;
-    transition: 0.3s;
-}
-
-nav ul li a:hover::after {
-    width: 100%;
-}
-
-.menu-toggle {
-    display: none;
-    flex-direction: column;
-    cursor: pointer;
-}
-
-.menu-toggle div {
-    width: 25px;
-    height: 3px;
-    background: #333;
-    margin: 4px 0;
-}
-
-@media (max-width: 768px) {
-
-    nav ul {
-        position: absolute;
-        top: 70px;
-        right: 0;
-        background: white;
-        flex-direction: column;
-        width: 220px;
-        text-align: center;
-        padding: 20px 0;
-        display: none;
-        box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-        border-radius: 0 0 0 15px;
-    }
-
-    nav ul.active {
-        display: flex;
-    }
-
-    nav ul li {
-        padding: 10px 0;
-    }
-
-    .menu-toggle {
-        display: flex;
-    }
-}
-
-/* ================= CONTENT ================= */
-
-.container {
-    padding: 40px 20px;
-    text-align: center;
-    color: white;
-}
-
-/* ================= LOVE TIME COUNTER ================= */
-
-.love-day-box {
-    margin-top: 25px;
-    background: rgba(255,255,255,0.15);
-    backdrop-filter: blur(12px);
-    padding: 25px;
-    border-radius: 25px;
-    display: inline-block;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-}
-
-.love-day-box h3 {
-    font-size: 16px;
-    margin-bottom: 15px;
-    font-weight: 500;
-}
-
-.time-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 10px;
-}
-
-.time-box {
-    background: rgba(255,255,255,0.25);
-    padding: 12px;
-    border-radius: 15px;
-}
-
-.time-box span {
-    display: block;
-    font-size: 20px;
-    font-weight: bold;
-}
-
-.time-box small {
-    font-size: 11px;
-}
-
-/* ================= NOTES ================= */
-
-.notes-wrapper {
-    max-width: 600px;
-    margin: 60px auto;
-    background: white;
-    padding: 25px;
-    border-radius: 20px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-}
-
-.notes-wrapper h2 {
-    text-align: center;
-    margin-bottom: 20px;
-    color: #ff7aa2;
-}
-
-.love-counter {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 20px;
-    gap: 10px;
-}
-
-.counter-box {
-    flex: 1;
-    padding: 10px;
-    border-radius: 12px;
-    text-align: center;
-    font-weight: bold;
-    font-size: 14px;
-}
-
-.nagata-counter {
-    background: #ffe5e5;
-    color: #ff1a1a;
-}
-
-.zzoraa-counter {
-    background: #e0f7ff;
-    color: #0077b6;
-}
-
-.note-input {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    margin-bottom: 20px;
-}
-
-.note-input select,
-.note-input input {
-    flex: 1;
-    min-width: 120px;
-    padding: 10px;
-    border-radius: 10px;
-    border: 1px solid #ddd;
-}
-
-.note-input button {
-    padding: 10px 16px;
-    border: none;
-    background: linear-gradient(to right, #ff7aa2, #ff4f81);
-    color: white;
-    border-radius: 10px;
-    cursor: pointer;
-    font-weight: bold;
-}
-
-#notesContainer {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-}
-
-.note-card {
-    padding: 15px;
-    border-radius: 15px;
-}
-
-.note-card.nagata {
-    background: #ffe5e5;
-    border-left: 6px solid #ff1a1a;
-}
-
-.note-card.zzoraa {
-    background: #e0f7ff;
-    border-left: 6px solid #4dc3ff;
-}
-
-.note-date {
-    font-size: 11px;
-    color: gray;
-}
+.note-card{padding:15px;border-radius:15px;}
+.note-card.nagata{background:#ffe5e5;border-left:6px solid #ff1a1a;}
+.note-card.zzoraa{background:#e0f7ff;border-left:6px solid #4dc3ff;}
+.note-date{font-size:11px;color:gray;}
 </style>
 </head>
 
 <body>
 
 <nav>
-    <div class="logo">
-        <img src="Z.jpg" alt="logo">
-        <a href="#">Memory Keeper</a>
-    </div>
+<div class="logo">
+<img src="Z.jpg">
+<a href="#">Memory Keeper</a>
+</div>
 
-    <ul id="nav-links">
-        <li><a href="https://www.instagram.com/">Instagram</a></li>
-        <li><a href="video.html">Video</a></li>
-        <li><a href="photo.html">Photo</a></li>
-        <li><a href="music.html">Music</a></li>
-    </ul>
+<ul id="nav-links">
+<li><a href="https://www.instagram.com/">Instagram</a></li>
+<li><a href="video.html">Video</a></li>
+<li><a href="photo.html">Photo</a></li>
+<li><a href="music.html">Music</a></li>
+</ul>
 
-    <div class="menu-toggle" onclick="toggleMenu()">
-        <div></div>
-        <div></div>
-        <div></div>
-    </div>
+<div class="menu-toggle" onclick="toggleMenu()">
+<div></div><div></div><div></div>
+</div>
 </nav>
 
 <div class="container">
-    <h1>Welcome to the Memory Keeper</h1>
-    <h2>Our Memories in a Box</h2>
+<h1>Welcome to the Memory Keeper</h1>
+<h2>Our Memories in a Box</h2>
 
-    <div class="love-day-box">
-        <h3>Sudah bersama selama</h3>
-        <div class="time-grid">
-            <div class="time-box"><span id="days">0</span><small>Hari</small></div>
-            <div class="time-box"><span id="hours">0</span><small>Jam</small></div>
-            <div class="time-box"><span id="minutes">0</span><small>Menit</small></div>
-            <div class="time-box"><span id="seconds">0</span><small>Detik</small></div>
-        </div>
-    </div>
+<div class="love-day-box">
+<h3>Sudah bersama selama</h3>
+<div class="time-grid">
+<div class="time-box"><span id="days">0</span><small>Hari</small></div>
+<div class="time-box"><span id="hours">0</span><small>Jam</small></div>
+<div class="time-box"><span id="minutes">0</span><small>Menit</small></div>
+<div class="time-box"><span id="seconds">0</span><small>Detik</small></div>
+</div>
+</div>
 </div>
 
 <div class="notes-wrapper">
-    <h2>💖 Our Love Notes</h2>
+<h2>💖 Our Love Notes</h2>
 
-    <div class="love-counter">
-        <div class="counter-box nagata-counter">
-            ❤️ Nagata: <span id="nagataCount">0</span>
-        </div>
-        <div class="counter-box zzoraa-counter">
-            💙 Zzoraa: <span id="zzoraaCount">0</span>
-        </div>
-    </div>
-
-    <div class="note-input">
-        <select id="noteAuthor">
-            <option value="nagata">Nagata ❤️</option>
-            <option value="zzoraa">Zzoraa 💙</option>
-        </select>
-
-        <input type="password" id="notePassword" placeholder="Password">
-        <input type="text" id="noteText" placeholder="Tulis sesuatu yahh babyy">
-        <button onclick="addNote()">Add</button>
-    </div>
-
-    <div id="notesContainer"></div>
+<div class="love-counter">
+<div class="counter-box nagata-counter">❤️ Nagata: <span id="nagataCount">0</span></div>
+<div class="counter-box zzoraa-counter">💙 Zzoraa: <span id="zzoraaCount">0</span></div>
 </div>
 
+<div class="note-input">
+<select id="noteAuthor">
+<option value="nagata">Nagata ❤️</option>
+<option value="zzoraa">Zzoraa 💙</option>
+</select>
+
+<input type="password" id="notePassword" placeholder="Password">
+<input type="text" id="noteText" placeholder="Tulis sesuatu yahh babyy">
+<button onclick="addNote()">Add</button>
+</div>
+
+<div id="notesContainer"></div>
+</div>
+
+<!-- FIREBASE -->
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
 
 <script>
-const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "love-storage-e3fa8.firebaseapp.com",
-  projectId: "love-storage-e3fa8"
+/* NAV */
+function toggleMenu(){
+document.getElementById("nav-links").classList.toggle("active");
+}
+
+/* LOVE TIMER */
+const startDate=new Date("2025-08-21T06:30:00");
+function updateLoveTime(){
+const now=new Date();
+const diff=now-startDate;
+document.getElementById("days").textContent=Math.floor(diff/(1000*60*60*24));
+document.getElementById("hours").textContent=Math.floor((diff/(1000*60*60))%24);
+document.getElementById("minutes").textContent=Math.floor((diff/(1000*60))%60);
+document.getElementById("seconds").textContent=Math.floor((diff/1000)%60);
+}
+setInterval(updateLoveTime,1000);
+updateLoveTime();
+
+/* FIREBASE CONFIG */
+const firebaseConfig={
+apiKey:"AIzaSyAoLxkrscN6sBUXAVc3ZRp2GRCb7kPkuVI",
+authDomain:"love-storage-e3fa8.firebaseapp.com",
+projectId:"love-storage-e3fa8",
+storageBucket:"love-storage-e3fa8.firebasestorage.app",
+messagingSenderId:"123681764269",
+appId:"1:123681764269:web:a6fea729c43aabdef9e724"
 };
 
 firebase.initializeApp(firebaseConfig);
-const db = firebase.firestore();
+const db=firebase.firestore();
 
-/* NAV */
-function toggleMenu() {
-    document.getElementById("nav-links").classList.toggle("active");
+/* PASSWORD */
+const passwords={
+nagata:"25",
+zzoraa:"23"
+};
+
+/* ADD NOTE */
+async function addNote(){
+const author=document.getElementById("noteAuthor").value;
+const password=document.getElementById("notePassword").value;
+const text=document.getElementById("noteText").value.trim();
+
+if(!text){alert("Tulis dulu yaa 💌");return;}
+if(password!==passwords[author]){alert("Password salah 😝");return;}
+
+await db.collection("loveNotes").add({
+author:author,
+text:text,
+created:firebase.firestore.FieldValue.serverTimestamp()
+});
+
+document.getElementById("noteText").value="";
+document.getElementById("notePassword").value="";
 }
 
-/* LOVE TIME REALTIME */
-const startDate = new Date("2025-08-21T06:30:00");
+/* REALTIME LOAD */
+db.collection("loveNotes")
+.orderBy("created","desc")
+.onSnapshot((snapshot)=>{
+const container=document.getElementById("notesContainer");
+container.innerHTML="";
+let nagataCount=0;
+let zzoraaCount=0;
 
-function updateLoveTime() {
-    const now = new Date();
-    const diff = now - startDate;
+snapshot.forEach((doc)=>{
+const data=doc.data();
+if(data.author==="nagata")nagataCount++;
+if(data.author==="zzoraa")zzoraaCount++;
 
-    const days = Math.floor(diff / (1000*60*60*24));
-    const hours = Math.floor((diff / (1000*60*60)) % 24);
-    const minutes = Math.floor((diff / (1000*60)) % 60);
-    const seconds = Math.floor((diff / 1000) % 60);
+const card=document.createElement("div");
+card.className=`note-card ${data.author}`;
 
-    document.getElementById("days").textContent = days;
-    document.getElementById("hours").textContent = hours;
-    document.getElementById("minutes").textContent = minutes;
-    document.getElementById("seconds").textContent = seconds;
-}
+const date=data.created?.toDate();
+const formatted=date?date.toLocaleString():"Baru saja 💖";
 
-setInterval(updateLoveTime, 1000);
-updateLoveTime();
+card.innerHTML=`
+<strong>${data.author==="nagata"?"Nagata ❤️":"Zzoraa 💙"}</strong>
+<p>${data.text}</p>
+<div class="note-date">${formatted}</div>
+`;
+
+container.appendChild(card);
+});
+
+document.getElementById("nagataCount").textContent=nagataCount;
+document.getElementById("zzoraaCount").textContent=zzoraaCount;
+});
 </script>
 
 </body>
