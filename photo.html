@@ -251,6 +251,23 @@ h1 {
         <div></div>
         <div></div>
     </div>
+
+/* FIX HAMBURGER MOBILE CLICK */
+
+body::before {
+    pointer-events: none;
+}
+
+nav {
+    position: fixed;
+    z-index: 3000; /* lebih tinggi dari lightbox */
+}
+
+.menu-toggle {
+    position: relative;
+    z-index: 4000;
+}
+
 </nav>
 
 <h1>OUR SWEET MEMORIES</h1>
