@@ -20,7 +20,8 @@ body {
     text-align: center;
 }
 
-/* NAVBAR */
+/* ================= NAVBAR ================= */
+
 nav {
     background: white;
     display: flex;
@@ -30,7 +31,7 @@ nav {
     box-shadow: 0 4px 15px rgba(0,0,0,0.1);
     position: sticky;
     top: 0;
-    z-index: 1000;
+    z-index: 2000;
 }
 
 .logo {
@@ -120,12 +121,28 @@ nav ul li a:hover::after {
     }
 }
 
-/* CONTENT WRAPPER */
-.content {
-    padding: 40px 20px;
+/* ================= HEADER ================= */
+
+.header {
+    padding: 60px 20px 30px;
 }
 
-/* GRID */
+.header h2 {
+    font-size: 32px;
+    margin-bottom: 10px;
+    color: white;
+}
+
+.header p {
+    color: rgba(255,255,255,0.8);
+}
+
+/* ================= CONTENT ================= */
+
+.content {
+    padding: 20px 20px 60px;
+}
+
 .video-grid {
     max-width: 1200px;
     margin: auto;
@@ -134,7 +151,6 @@ nav ul li a:hover::after {
     gap: 30px;
 }
 
-/* CARD */
 .video-card {
     position: relative;
     border-radius: 20px;
@@ -178,7 +194,8 @@ nav ul li a:hover::after {
     opacity: 1;
 }
 
-/* MODAL */
+/* ================= MODAL ================= */
+
 .modal {
     display: none;
     position: fixed;
@@ -186,7 +203,7 @@ nav ul li a:hover::after {
     background: rgba(0,0,0,0.95);
     justify-content: center;
     align-items: center;
-    z-index: 1000;
+    z-index: 3000;
     padding: 20px;
 }
 
@@ -196,23 +213,7 @@ nav ul li a:hover::after {
     border-radius: 20px;
 }
 
-/* ================= HEADER ================= */
-
-.header {
-    text-align: center;
-    padding: 50px 20px 20px;
-}
-
-.header h2 {
-    font-size: 32px;
-    margin-bottom: 10px;
-}
-
-.header p {
-    color: #666;
-}
-
-/* FOOTER */
+/* ================= FOOTER ================= */
 
 footer {
     text-align: center;
@@ -221,24 +222,12 @@ footer {
     font-size: 14px;
     color: #555;
 }
-
-@media (max-width: 768px) {
-    .playlist-card {
-        width: 100%;
-        max-width: 350px;
-    }
-}
-
 </style>
 </head>
 
 <body>
 
-<!-- HEADER -->
-<div class="header">
-    <h2>Our Video</h2>
-</div>
-
+<!-- NAVBAR (PALING ATAS) -->
 <nav>
     <div class="logo">
         <img src="Z.jpg" alt="logo">
@@ -259,6 +248,13 @@ footer {
     </div>
 </nav>
 
+<!-- HEADER (DI BAWAH NAVBAR) -->
+<div class="header">
+    <h2>Our Video Memories</h2>
+    <p>Some beautiful moments captured</p>
+</div>
+
+<!-- CONTENT -->
 <div class="content">
     <div class="video-grid">
         <div class="video-card" onclick="openModal('part1.mp4')">
@@ -286,9 +282,9 @@ footer {
     <video controls id="modalVideo"></video>
 </div>
 
-<footer> This is Nagata who loves Zzoraa very much :3
+<footer>
+This is Nagata who loves Zzoraa very much :3
 </footer>
-
 
 <script>
 const modal = document.getElementById("modal");
