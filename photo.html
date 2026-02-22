@@ -26,7 +26,7 @@ nav {
     width: 100%;
     top: 0;
     left: 0;
-    z-index: 1000;
+    z-index: 3000; /* FIX layering */
 }
 
 .logo {
@@ -84,7 +84,8 @@ nav ul li a:hover::after {
     display: none;
     flex-direction: column;
     cursor: pointer;
-    z-index: 1100;
+    position: relative;
+    z-index: 4000; /* ensure clickable */
 }
 
 .menu-toggle div {
@@ -107,7 +108,7 @@ nav ul li a:hover::after {
         padding: 20px 0;
         display: none;
         box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-        z-index: 1050;
+        z-index: 3500;
     }
 
     nav ul.active {
@@ -124,12 +125,12 @@ nav ul li a:hover::after {
 body {
     background: white;
     min-height: 100vh;
-    padding-top: 90px; /* supaya konten tidak ketiban navbar */
+    padding-top: 90px;
     position: relative;
     overflow-x: hidden;
 }
 
-/* SILUET */
+/* FIX: supaya siluet tidak ganggu klik */
 body::before {
     content: "";
     position: fixed;
@@ -142,6 +143,7 @@ body::before {
     opacity: 0.06;
     filter: blur(1px);
     z-index: -1;
+    pointer-events: none; /* IMPORTANT FIX */
 }
 
 /* TITLE */
@@ -221,31 +223,8 @@ h1 {
     max-width: 85%;
     max-height: 85%;
     border-radius: 20px;
-    animation: fadeIn 0.3s ease;
 }
-
-@keyframes fadeIn {
-    from { opacity: 0; transform: scale(0.9); }
-    to { opacity: 1; transform: scale(1); }
-}
-
-/* FIX HAMBURGER MOBILE CLICK */
-body::before {
-    pointer-events: none;
-}
-
-nav {
-    position: fixed;
-    z-index: 3000; /* lebih tinggi dari lightbox */
-}
-
-.menu-toggle {
-    position: relative;
-    z-index: 4000;
-}
-
 </style>
-
 </head>
 
 <body>
@@ -257,7 +236,7 @@ nav {
     </div>
 
     <ul id="nav-links">
-        <li><a href="https://www.instagram.com/vapoumbreon?igsh=MWRndmlpMXBlZnc5Ng==">Instagram</a></li>
+        <li><a href="#">Instagram</a></li>
         <li><a href="video.html">Video</a></li>
         <li><a href="music.html">Music</a></li>
         <li><a href="index.html">Home</a></li>
@@ -268,7 +247,6 @@ nav {
         <div></div>
         <div></div>
     </div>
-
 </nav>
 
 <h1>OUR SWEET MEMORIES</h1>
@@ -285,98 +263,23 @@ nav {
     <img id="lightbox-img">
 </div>
 
-<script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-app.js";
-import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-storage.js";
-import { getFirestore, collection, addDoc, getDocs, serverTimestamp } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-firestore.js";
+<script>
+const menuToggle = document.querySelector('.menu-toggle');
+const navLinks = document.getElementById('nav-links');
 
-const firebaseConfig = {
-    apiKey: "AIzaSyAoLxkrscN6sBUXAVc3ZRp2GRCb7kPkuVI",
-    authDomain: "love-storage-e3fa8.firebaseapp.com",
-    projectId: "love-storage-e3fa8",
-    storageBucket: "love-storage-e3fa8.firebasestorage.app",
-    messagingSenderId: "123681764269",
-    appId: "1:123681764269:web:acfee7e0204b130af9e724",
-    measurementId: "G-04R21W3M1R"
-};
-
-const app = initializeApp(firebaseConfig);
-const storage = getStorage(app);
-const db = getFirestore(app);
-
-const PASSWORD = "NagZzor2325";
-
-const gallery = document.querySelector(".gallery");
-const status = document.getElementById("uploadStatus");
-const uploadBtn = document.getElementById("uploadBtn");
-
-uploadBtn.addEventListener('click', async () => {
-    const password = document.getElementById("uploadPassword").value;
-    const file = document.getElementById("fileInput").files[0];
-
-    if(password !== PASSWORD) { alert("Wrong password!"); return; }
-    if(!file) { alert("Select a file!"); return; }
-
-    const storageRef = ref(storage, `gallery/${Date.now()}_${file.name}`);
-    const uploadTask = uploadBytesResumable(storageRef, file);
-
-    status.textContent = "Uploading... 0%";
-
-    uploadTask.on('state_changed', snapshot => {
-        const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-        status.textContent = `Uploading... ${Math.floor(progress)}%`;
-    }, error => {
-        console.error(error);
-        status.textContent = "Upload failed!";
-    }, async () => {
-        const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
-        status.textContent = "Upload complete!";
-
-        await addDoc(collection(db, "photos"), { url: downloadURL, uploadedAt: serverTimestamp() });
-
-        const card = document.createElement("div");
-        card.className = "photo-card";
-        card.setAttribute("onclick", `openLightbox('${downloadURL}')`);
-        card.innerHTML = `<img src="${downloadURL}">`;
-        gallery.prepend(card);
-
-        document.getElementById("fileInput").value = "";
-        document.getElementById("uploadPassword").value = "";
-    });
+menuToggle.addEventListener('click', () => {
+    navLinks.classList.toggle('active');
 });
 
-// Load existing photos from Firestore
-window.addEventListener('DOMContentLoaded', async () => {
-    const snapshot = await getDocs(collection(db, "photos"));
-    snapshot.forEach(doc => {
-        const data = doc.data();
-        const card = document.createElement("div");
-        card.className = "photo-card";
-        card.setAttribute("onclick", `openLightbox('${data.url}')`);
-        card.innerHTML = `<img src="${data.url}">`;
-        gallery.appendChild(card);
-    });
-});
-
-// Lightbox functions
-window.openLightbox = function(src) {
+function openLightbox(src) {
     const lightbox = document.getElementById("lightbox");
     lightbox.style.display = "flex";
     document.getElementById("lightbox-img").src = src;
-};
-window.closeLightbox = function() {
+}
+
+function closeLightbox() {
     document.getElementById("lightbox").style.display = "none";
-};
-
-// Hamburger toggle
-document.addEventListener('DOMContentLoaded', () => {
-    const menuToggle = document.querySelector('.menu-toggle');
-    const navLinks = document.getElementById('nav-links');
-
-    menuToggle.addEventListener('click', () => {
-        navLinks.classList.toggle('active');
-    });
-});
+}
 </script>
 
 </body>
