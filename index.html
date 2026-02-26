@@ -57,23 +57,15 @@ nav ul li{padding:10px 0;}
 .note-card.zzoraa{background:#e0f7ff;border-left:6px solid #4dc3ff;}
 .note-date{font-size:11px;color:gray;}
 
-/* FOOTER */
+/* POPUP */
+.popup-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.6);display:none;justify-content:center;align-items:center;z-index:9999;}
+.popup-box{background:white;padding:30px;border-radius:25px;text-align:center;max-width:350px;animation:popupScale 0.4s ease;box-shadow:0 10px 30px rgba(0,0,0,0.2);}
+.popup-box h2{color:#ff4f81;margin-bottom:10px;}
+.popup-box p{margin-bottom:20px;}
+.popup-box button{padding:8px 18px;border:none;border-radius:20px;background:linear-gradient(to right,#ff7aa2,#ff4f81);color:white;cursor:pointer;font-weight:bold;}
+@keyframes popupScale{from{transform:scale(0.5);opacity:0;}to{transform:scale(1);opacity:1;}}
 
-footer {
-    text-align: center;
-    padding: 20px;
-    background: #eee;
-    font-size: 14px;
-    color: #555;
-}
-
-@media (max-width: 768px) {
-    .playlist-card {
-        width: 100%;
-        max-width: 350px;
-    }
-}
-
+footer{text-align:center;padding:20px;background:#eee;font-size:14px;color:#555;}
 </style>
 </head>
 
@@ -84,14 +76,12 @@ footer {
 <img src="Z.jpg">
 <a href="#">Memory Keeper</a>
 </div>
-
 <ul id="nav-links">
 <li><a href="https://www.instagram.com/">Instagram</a></li>
 <li><a href="video.html">Video</a></li>
 <li><a href="photo.html">Photo</a></li>
 <li><a href="music.html">Music</a></li>
 </ul>
-
 <div class="menu-toggle" onclick="toggleMenu()">
 <div></div><div></div><div></div>
 </div>
@@ -125,7 +115,6 @@ footer {
 <option value="nagata">Nagata ❤️</option>
 <option value="zzoraa">Zzoraa 💙</option>
 </select>
-
 <input type="password" id="notePassword" placeholder="Password">
 <input type="text" id="noteText" placeholder="Tulis sesuatu yahh babyy">
 <button onclick="addNote()">Add</button>
@@ -134,19 +123,23 @@ footer {
 <div id="notesContainer"></div>
 </div>
 
-<footer> This is Nagata who loves Zzoraa very much :3
-</footer>
+<!-- POPUP -->
+<div class="popup-overlay" id="annivPopup">
+<div class="popup-box">
+<h2 id="popupTitle"></h2>
+<p id="popupMessage"></p>
+<button onclick="closePopup()">Close ❤️</button>
+</div>
+</div>
 
+<footer>This is Nagata who loves Zzoraa very much :3</footer>
 
 <!-- FIREBASE -->
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
 
 <script>
-/* NAV */
-function toggleMenu(){
-document.getElementById("nav-links").classList.toggle("active");
-}
+function toggleMenu(){document.getElementById("nav-links").classList.toggle("active");}
 
 /* LOVE TIMER */
 const startDate=new Date("2025-08-21T06:30:00");
@@ -158,79 +151,81 @@ document.getElementById("hours").textContent=Math.floor((diff/(1000*60*60))%24);
 document.getElementById("minutes").textContent=Math.floor((diff/(1000*60))%60);
 document.getElementById("seconds").textContent=Math.floor((diff/1000)%60);
 }
-setInterval(updateLoveTime,1000);
-updateLoveTime();
+setInterval(updateLoveTime,1000);updateLoveTime();
 
-/* FIREBASE CONFIG */
+/* FIREBASE */
 const firebaseConfig={
-apiKey:"AIzaSyAoLxkrscN6sBUXAVc3ZRp2GRCb7kPkuVI",
+apiKey:"AIzaSyXXXX",
 authDomain:"love-storage-e3fa8.firebaseapp.com",
 projectId:"love-storage-e3fa8",
-storageBucket:"love-storage-e3fa8.firebasestorage.app",
+storageBucket:"love-storage-e3fa8.appspot.com",
 messagingSenderId:"123681764269",
 appId:"1:123681764269:web:a6fea729c43aabdef9e724"
 };
-
 firebase.initializeApp(firebaseConfig);
 const db=firebase.firestore();
 
-/* PASSWORD */
-const passwords={
-nagata:"25",
-zzoraa:"23"
-};
+const passwords={nagata:"25",zzoraa:"23"};
 
-/* ADD NOTE */
 async function addNote(){
 const author=document.getElementById("noteAuthor").value;
 const password=document.getElementById("notePassword").value;
 const text=document.getElementById("noteText").value.trim();
-
 if(!text){alert("Tulis dulu yaa 💌");return;}
 if(password!==passwords[author]){alert("Password salah 😝");return;}
-
 await db.collection("loveNotes").add({
-author:author,
-text:text,
-created:firebase.firestore.FieldValue.serverTimestamp()
+author,text,created:firebase.firestore.FieldValue.serverTimestamp()
 });
-
 document.getElementById("noteText").value="";
 document.getElementById("notePassword").value="";
 }
 
-/* REALTIME LOAD */
-db.collection("loveNotes")
-.orderBy("created","desc")
+db.collection("loveNotes").orderBy("created","desc")
 .onSnapshot((snapshot)=>{
 const container=document.getElementById("notesContainer");
 container.innerHTML="";
-let nagataCount=0;
-let zzoraaCount=0;
-
+let nagataCount=0,zzoraaCount=0;
 snapshot.forEach((doc)=>{
 const data=doc.data();
 if(data.author==="nagata")nagataCount++;
 if(data.author==="zzoraa")zzoraaCount++;
-
 const card=document.createElement("div");
 card.className=`note-card ${data.author}`;
-
 const date=data.created?.toDate();
 const formatted=date?date.toLocaleString():"Baru saja 💖";
-
-card.innerHTML=`
-<strong>${data.author==="nagata"?"Nagata ❤️":"Zzoraa 💙"}</strong>
+card.innerHTML=`<strong>${data.author==="nagata"?"Nagata ❤️":"Zzoraa 💙"}</strong>
 <p>${data.text}</p>
-<div class="note-date">${formatted}</div>
-`;
-
+<div class="note-date">${formatted}</div>`;
 container.appendChild(card);
 });
-
 document.getElementById("nagataCount").textContent=nagataCount;
 document.getElementById("zzoraaCount").textContent=zzoraaCount;
 });
+
+/* ANNIVERSARY & MENSIVERSARY */
+const annivDay=startDate.getDate();
+const annivMonth=startDate.getMonth()+1;
+const today=new Date();
+const todayKey=today.toDateString();
+if(localStorage.getItem("specialPopupShown")!==todayKey){
+if(today.getDate()===annivDay && today.getMonth()+1===annivMonth){
+const years=today.getFullYear()-startDate.getFullYear();
+if(years>=1){
+document.getElementById("popupTitle").innerText="🎉 Happy Anniversary ❤️";
+document.getElementById("popupMessage").innerText=`Sudah ${years} tahun bersama 🥹💖`;
+document.getElementById("annivPopup").style.display="flex";
+localStorage.setItem("specialPopupShown",todayKey);
+}
+}else if(today.getDate()===annivDay){
+const months=(today.getFullYear()-startDate.getFullYear())*12+(today.getMonth()-startDate.getMonth());
+if(months>=1){
+document.getElementById("popupTitle").innerText="💕 Happy Mensiversary";
+document.getElementById("popupMessage").innerText=`Sudah ${months} bulan bersama 🥰💙`;
+document.getElementById("annivPopup").style.display="flex";
+localStorage.setItem("specialPopupShown",todayKey);
+}
+}}
+function closePopup(){document.getElementById("annivPopup").style.display="none";}
 </script>
 
 </body>
