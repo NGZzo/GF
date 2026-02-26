@@ -303,7 +303,7 @@ I lovee you yesterday, today, and tomorrow,
 Nothing gonna change my love for you babyy :3 🤍`;
 }else{
 document.getElementById("popupTitle").innerText="😝 Ehh tunggu duluu";
-document.getElementById("popupMessage").innerText="Bukan hari anniversary kita babyy 💕";
+document.getElementById("popupMessage").innerText="Bukan hari anniversary kita babyy ";
 }
 document.getElementById("annivPopup").style.display="flex";
 }
@@ -312,11 +312,11 @@ function openMensiversary(){
 const today=new Date();
 if(today.getDate()===annivDay){
 const months=(today.getFullYear()-startDate.getFullYear())*12+(today.getMonth()-startDate.getMonth());
-document.getElementById("popupTitle").innerText="💕 Happy Mensiversary babeee :3";
+document.getElementById("popupTitle").innerText=" Happy Mensiversary babeee :3";
 document.getElementById("popupMessage").innerText=`Babyy kita sudah ${months} bulan bersama 💙`;
 }else{
 document.getElementById("popupTitle").innerText="🤭 Hehehe";
-document.getElementById("popupMessage").innerText="Hari ini bukan mensiversary kita sayangg 💕";
+document.getElementById("popupMessage").innerText="Hari ini bukan mensiversary kita babyyy";
 }
 document.getElementById("annivPopup").style.display="flex";
 }
