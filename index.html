@@ -6,6 +6,60 @@
 <title>Memory Keeper</title>
 
 <style>
+
+/* ===== BIRTHDAY POPUP ===== */
+.birthday-popup{
+position:fixed;
+inset:0;
+background:rgba(0,0,0,0.6);
+display:flex;
+justify-content:center;
+align-items:center;
+visibility:hidden;
+opacity:0;
+transition:0.3s;
+z-index:10000;
+}
+.birthday-popup.active{
+visibility:visible;
+opacity:1;
+}
+.birthday-card{
+background:white;
+color:#333;
+padding:30px;
+border-radius:20px;
+width:320px;
+text-align:center;
+box-shadow:0 15px 40px rgba(0,0,0,0.3);
+}
+.birthday-card input{
+width:100%;
+padding:12px;
+margin-top:15px;
+border-radius:10px;
+border:2px solid #ddd;
+outline:none;
+font-size:14px;
+}
+.birthday-card button{
+margin-top:15px;
+padding:12px;
+width:100%;
+border:none;
+border-radius:10px;
+background:#2a5298;
+color:white;
+font-weight:bold;
+cursor:pointer;
+}
+.birthday-error{
+color:red;
+font-size:13px;
+margin-top:10px;
+display:none;
+}
+
 *{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif;}
 body{background:linear-gradient(to right,#87ceeb,#b0e0ff);}
 
@@ -256,6 +310,75 @@ footer{text-align:center;padding:20px;background:#eee;color:#555;}
 
 <footer>This is Nagata who loves Zzoraa very much :3</footer>
 
+<!-- ===== BIRTHDAY PASSWORD POPUP ===== -->
+<div class="birthday-popup" id="birthdayPasswordPopup">
+<div class="birthday-card">
+<h2>🎂 Birthday Access</h2>
+<p>Masukkan password untuk membuka kejutan 🎁</p>
+<input type="password" id="birthdayPasswordInput" placeholder="Enter password...">
+<button onclick="checkBirthdayPassword()">Unlock</button>
+<div class="birthday-error" id="birthdayErrorText">Password salah 😝 coba lagi!</div>
+</div>
+</div>
+
+<!-- ===== BIRTHDAY MESSAGE POPUP ===== -->
+<div class="birthday-popup" id="birthdayMessagePopup">
+<div class="birthday-card">
+<h2>🥳 HAPPY BIRTHDAYYY 🎉</h2>
+<div style="font-size:15px;line-height:1.5;margin-top:10px;">
+Selamat ulang tahun babyy<br><br>
+Happy Birthday, Zzoraa.
+On the 23rd of May, 2011,
+the world quietly became softer
+because you were born into it.
+Some people enter this world loudly,
+but you…
+you exist like a gentle light 
+steady, warm, and impossible to ignore once felt.
+Today is not just about adding another year to your life.
+It’s about honoring the heart you carry,
+the kindness you show,
+and the strength you hold even when things feel heavy.
+If I could whisper a prayer into the sky for you,
+I would ask the universe to always be gentle with your soul.
+To protect your dreams.
+To guard your smile.
+To remind you, especially on difficult days,
+that you are deeply loved and endlessly valuable.
+Loving you feels like finding calm in chaos.
+Like discovering that my heart has a place it always wants to return to 
+and that place is you.
+If life ever becomes overwhelming,
+I hope you remember this:
+you do not walk alone.
+Not in your fears,
+not in your doubts,
+not in your silent battles.
+In a world that can sometimes be cruel,
+I want to be someone who brings you peace.
+Someone who stays.
+Someone who chooses you, over and over again.
+May this new year of your life bring growth without breaking you,
+lessons without losing yourself,
+and happiness that feels genuine and lasting.
+May your path be filled with light,
+your heart with courage,
+and your days with moments that make you proud to be you.
+And if souls truly recognize each other beyond time and distance,
+then I believe mine would still search for yours 
+in every place,
+in every lifetime.
+May your soul continue to bloom beautifully, just as it was meant to.
+
+sincerely
+
+Nagata.
+I LOVEE YOUU BABEE <br><br>
+</div>
+<button onclick="closeBirthdayPopup()">Close</button>
+</div>
+</div>
+
 <!-- FIREBASE -->
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
@@ -385,6 +508,31 @@ container.appendChild(card);
 document.getElementById("nagataCount").textContent=nagataCount;
 document.getElementById("zzoraaCount").textContent=zzoraaCount;
 });
+
+// ===== BIRTHDAY SYSTEM =====
+const birthdayMonth = 2;  // ganti bulan
+const birthdayDate = 26;  // ganti tanggal
+const correctBirthdayPassword = "23";
+
+const todayBirthday = new Date();
+if(todayBirthday.getMonth()+1===birthdayMonth && todayBirthday.getDate()===birthdayDate){
+document.getElementById("birthdayPasswordPopup").classList.add("active");
+}
+
+function checkBirthdayPassword(){
+const input=document.getElementById("birthdayPasswordInput").value;
+if(input===correctBirthdayPassword){
+document.getElementById("birthdayPasswordPopup").classList.remove("active");
+document.getElementById("birthdayMessagePopup").classList.add("active");
+}else{
+document.getElementById("birthdayErrorText").style.display="block";
+}
+}
+
+function closeBirthdayPopup(){
+document.getElementById("birthdayMessagePopup").classList.remove("active");
+}
+
 </script>
 
 </body>
