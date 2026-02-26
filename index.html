@@ -258,15 +258,17 @@ document.getElementById("annivPopup").style.display="flex";
 
 function closePopup(){ document.getElementById("annivPopup").style.display="none"; }
 
-// FIREBASE
-const firebaseConfig={
-apiKey:"AIzaSyXXXX",
-authDomain:"love-storage-e3fa8.firebaseapp.com",
-projectId:"love-storage-e3fa8",
-storageBucket:"love-storage-e3fa8.appspot.com",
-messagingSenderId:"123681764269",
-appId:"1:123681764269:web:a6fea729c43aabdef9e724"
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+  apiKey: "AIzaSyAoLxkrscN6sBUXAVc3ZRp2GRCb7kPkuVI",
+  authDomain: "love-storage-e3fa8.firebaseapp.com",
+  projectId: "love-storage-e3fa8",
+  storageBucket: "love-storage-e3fa8.firebasestorage.app",
+  messagingSenderId: "123681764269",
+  appId: "1:123681764269:web:a6fea729c43aabdef9e724",
+  measurementId: "G-F9TR4GT5K8"
 };
+
 firebase.initializeApp(firebaseConfig);
 const db=firebase.firestore();
 const passwords={nagata:"25",zzoraa:"23"};
