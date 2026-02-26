@@ -4,256 +4,130 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Memory Keeper</title>
-
 <style>
-
 /* ===== BIRTHDAY POPUP ===== */
 .birthday-popup{
-position:fixed;
-inset:0;
+position:fixed; inset:0;
 background:rgba(0,0,0,0.6);
-display:flex;
-justify-content:center;
-align-items:center;
-visibility:hidden;
-opacity:0;
-transition:0.3s;
-z-index:10000;
+display:flex; justify-content:center; align-items:center;
+visibility:hidden; opacity:0; transition:0.3s; z-index:10000;
 }
-.birthday-popup.active{
-visibility:visible;
-opacity:1;
-}
+.birthday-popup.active{ visibility:visible; opacity:1; }
 .birthday-card{
-background:white;
-color:#333;
-padding:30px;
-border-radius:20px;
-width:320px;
-text-align:center;
-box-shadow:0 15px 40px rgba(0,0,0,0.3);
+background:white; color:#333; padding:30px; border-radius:20px;
+width:320px; text-align:center; box-shadow:0 15px 40px rgba(0,0,0,0.3);
 }
 .birthday-card input{
-width:100%;
-padding:12px;
-margin-top:15px;
-border-radius:10px;
-border:2px solid #ddd;
-outline:none;
-font-size:14px;
+width:100%; padding:12px; margin-top:15px;
+border-radius:10px; border:2px solid #ddd; outline:none; font-size:14px;
 }
 .birthday-card button{
-margin-top:15px;
-padding:12px;
-width:100%;
-border:none;
-border-radius:10px;
-background:#2a5298;
-color:white;
-font-weight:bold;
-cursor:pointer;
+margin-top:15px; padding:12px; width:100%;
+border:none; border-radius:10px;
+background:#2a5298; color:white; font-weight:bold; cursor:pointer;
 }
 .birthday-error{
-color:red;
-font-size:13px;
-margin-top:10px;
-display:none;
+color:red; font-size:13px; margin-top:10px; display:none;
 }
-
-*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif;}
+*{margin:0; padding:0; box-sizing:border-box; font-family:Arial,sans-serif;}
 body{background:linear-gradient(to right,#87ceeb,#b0e0ff);}
 
 /* NAVBAR */
 nav{
-background:white;
-display:flex;
-justify-content:space-between;
-align-items:center;
-padding:1rem 2rem;
-box-shadow:0 4px 15px rgba(0,0,0,0.08);
-position:sticky;
-top:0;
-z-index:1000;
+background:white; display:flex; justify-content:space-between; align-items:center;
+padding:1rem 2rem; box-shadow:0 4px 15px rgba(0,0,0,0.08);
+position:sticky; top:0; z-index:1000;
 }
-.logo{display:flex;align-items:center;gap:10px;}
-.logo img{width:45px;height:45px;border-radius:50%;object-fit:cover;}
-.logo a{text-decoration:none;font-weight:bold;font-size:18px;color:#2c5364;}
-nav ul{display:flex;gap:1.8rem;list-style:none;}
-nav ul li a{text-decoration:none;color:#333;font-weight:600;}
-.menu-toggle{display:none;flex-direction:column;cursor:pointer;}
-.menu-toggle div{width:25px;height:3px;background:#333;margin:4px 0;}
-
+.logo{display:flex; align-items:center; gap:10px;}
+.logo img{width:45px; height:45px; border-radius:50%; object-fit:cover;}
+.logo a{text-decoration:none; font-weight:bold; font-size:18px; color:#2c5364;}
+nav ul{display:flex; gap:1.8rem; list-style:none;}
+nav ul li a{text-decoration:none; color:#333; font-weight:600;}
+.menu-toggle{display:none; flex-direction:column; cursor:pointer;}
+.menu-toggle div{width:25px; height:3px; background:#333; margin:4px 0;}
 @media(max-width:768px){
 nav ul{
-position:absolute;
-top:70px;
-right:0;
-background:white;
-flex-direction:column;
-width:220px;
-text-align:center;
-padding:20px 0;
-display:none;
-box-shadow:0 10px 25px rgba(0,0,0,0.1);
+position:absolute; top:70px; right:0; background:white;
+flex-direction:column; width:220px; text-align:center;
+padding:20px 0; display:none; box-shadow:0 10px 25px rgba(0,0,0,0.1);
 }
 nav ul.active{display:flex;}
 .menu-toggle{display:flex;}
 }
-
-.container{text-align:center;color:white;padding:40px 20px;}
-
+.container{text-align:center; color:white; padding:40px 20px;}
 .love-day-box{
-margin-top:25px;
-background:rgba(255,255,255,0.15);
-backdrop-filter:blur(12px);
-padding:25px;
-border-radius:25px;
-display:inline-block;
-box-shadow:0 10px 25px rgba(0,0,0,0.15);
+margin-top:25px; background:rgba(255,255,255,0.15);
+backdrop-filter:blur(12px); padding:25px; border-radius:25px;
+display:inline-block; box-shadow:0 10px 25px rgba(0,0,0,0.15);
 }
-
-.time-grid{
-display:grid;
-grid-template-columns:repeat(4,1fr);
-gap:10px;
-}
-
+.time-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:10px;}
 .time-box{
-background:rgba(255,255,255,0.25);
-padding:12px;
-border-radius:15px;
+background:rgba(255,255,255,0.25); padding:12px; border-radius:15px;
 }
-.time-box span{display:block;font-size:20px;font-weight:bold;}
+.time-box span{display:block; font-size:20px; font-weight:bold;}
 .time-box small{font-size:11px;}
 
 /* BUTTONS ABOVE NOTES */
-.special-buttons{
-margin:40px auto 10px;
-text-align:center;
-}
+.special-buttons{margin:40px auto 10px; text-align:center;}
 .special-buttons button{
-padding:8px 18px;
-border:none;
-border-radius:20px;
-color:white;
-cursor:pointer;
-font-weight:bold;
-margin:5px;
+padding:8px 18px; border:none; border-radius:20px;
+color:white; cursor:pointer; font-weight:bold; margin:5px;
 }
 .anniv-btn{background:linear-gradient(to right,#ff7aa2,#ff4f81);}
 .mensiv-btn{background:linear-gradient(to right,#4dc3ff,#0077b6);}
 
 /* NOTES */
 .notes-wrapper{
-max-width:600px;
-margin:20px auto 60px;
-background:white;
-padding:25px;
-border-radius:20px;
-box-shadow:0 10px 25px rgba(0,0,0,0.1);
+max-width:600px; margin:20px auto 60px; background:white;
+padding:25px; border-radius:20px; box-shadow:0 10px 25px rgba(0,0,0,0.1);
 }
-.notes-wrapper h2{text-align:center;margin-bottom:20px;color:#ff7aa2;}
-
-.love-counter{
-display:flex;
-justify-content:space-between;
-margin-bottom:20px;
-gap:10px;
-}
-.counter-box{
-flex:1;
-padding:10px;
-border-radius:12px;
-text-align:center;
-font-weight:bold;
-font-size:14px;
-}
-.nagata-counter{background:#ffe5e5;color:#ff1a1a;}
-.zzoraa-counter{background:#e0f7ff;color:#0077b6;}
-
-.note-input{
-display:flex;
-flex-wrap:wrap;
-gap:10px;
-margin-bottom:20px;
-}
-.note-input select,
-.note-input input{
-flex:1;
-min-width:120px;
-padding:10px;
-border-radius:10px;
-border:1px solid #ddd;
-}
+.notes-wrapper h2{text-align:center; margin-bottom:20px; color:#ff7aa2;}
+.love-counter{display:flex; justify-content:space-between; margin-bottom:20px; gap:10px;}
+.counter-box{flex:1; padding:10px; border-radius:12px; text-align:center; font-weight:bold; font-size:14px;}
+.nagata-counter{background:#ffe5e5; color:#ff1a1a;}
+.zzoraa-counter{background:#e0f7ff; color:#0077b6;}
+.note-input{display:flex; flex-wrap:wrap; gap:10px; margin-bottom:20px;}
+.note-input select, .note-input input{flex:1; min-width:120px; padding:10px; border-radius:10px; border:1px solid #ddd;}
 .note-input button{
-padding:10px 16px;
-border:none;
-background:linear-gradient(to right,#ff7aa2,#ff4f81);
-color:white;
-border-radius:10px;
-cursor:pointer;
-font-weight:bold;
+padding:10px 16px; border:none;
+background:linear-gradient(to right,#ff7aa2,#ff4f81); color:white; border-radius:10px;
+cursor:pointer; font-weight:bold;
 }
-
-#notesContainer{display:flex;flex-direction:column;gap:15px;}
-
-.note-card{padding:15px;border-radius:15px;}
-.note-card.nagata{background:#ffe5e5;border-left:6px solid #ff1a1a;}
-.note-card.zzoraa{background:#e0f7ff;border-left:6px solid #4dc3ff;}
-.note-date{font-size:11px;color:gray;}
+#notesContainer{display:flex; flex-direction:column; gap:15px;}
+.note-card{padding:15px; border-radius:15px;}
+.note-card.nagata{background:#ffe5e5; border-left:6px solid #ff1a1a;}
+.note-card.zzoraa{background:#e0f7ff; border-left:6px solid #4dc3ff;}
+.note-date{font-size:11px; color:gray;}
 
 /* POPUP */
 .popup-overlay{
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-background:rgba(0,0,0,0.6);
-display:none;
-justify-content:center;
-align-items:center;
-z-index:9999;
+position:fixed; top:0; left:0; width:100%; height:100%;
+background:rgba(0,0,0,0.6); display:none; justify-content:center; align-items:center; z-index:9999;
 }
 .popup-box{
-background:white;
-padding:30px;
-border-radius:25px;
-text-align:center;
-max-width:350px;
-box-shadow:0 10px 30px rgba(0,0,0,0.2);
+background:white; padding:30px; border-radius:25px;
+text-align:center; max-width:350px; box-shadow:0 10px 30px rgba(0,0,0,0.2);
 }
-.popup-box p{white-space:pre-line;margin-bottom:20px;}
+.popup-box p{white-space:pre-line; margin-bottom:20px;}
 .popup-box button{
-padding:8px 18px;
-border:none;
-border-radius:20px;
+padding:8px 18px; border:none; border-radius:20px;
 background:linear-gradient(to right,#ff7aa2,#ff4f81);
-color:white;
-cursor:pointer;
-font-weight:bold;
+color:white; cursor:pointer; font-weight:bold;
 }
-
-footer{text-align:center;padding:20px;background:#eee;color:#555;}
+footer{text-align:center; padding:20px; background:#eee; color:#555;}
 </style>
 </head>
-
 <body>
 
 <nav>
-<div class="logo">
-<img src="Z.jpg">
-<a href="#">Memory Keeper</a>
-</div>
+<div class="logo"><img src="Z.jpg"><a href="#">Memory Keeper</a></div>
 <ul id="nav-links">
 <li><a href="https://www.instagram.com/">Instagram</a></li>
 <li><a href="video.html">Video</a></li>
 <li><a href="photo.html">Photo</a></li>
 <li><a href="music.html">Music</a></li>
 </ul>
-<div class="menu-toggle" onclick="toggleMenu()">
-<div></div><div></div><div></div>
-</div>
+<div class="menu-toggle" onclick="toggleMenu()"><div></div><div></div><div></div></div>
 </nav>
 
 <div class="container">
@@ -271,7 +145,7 @@ footer{text-align:center;padding:20px;background:#eee;color:#555;}
 </div>
 </div>
 
-<!-- BUTTONS ABOVE LOVE NOTES -->
+<!-- BUTTONS ABOVE NOTES -->
 <div class="special-buttons">
 <button class="anniv-btn" onclick="openAnniversary()">🎉 Open Anniversary</button>
 <button class="mensiv-btn" onclick="openMensiversary()">💕 Open Mensiversary</button>
@@ -280,12 +154,10 @@ footer{text-align:center;padding:20px;background:#eee;color:#555;}
 <!-- LOVE NOTES -->
 <div class="notes-wrapper">
 <h2>Our Love Notes</h2>
-
 <div class="love-counter">
 <div class="counter-box nagata-counter">❤️ Nagata: <span id="nagataCount">0</span></div>
 <div class="counter-box zzoraa-counter">💙 Zzoraa: <span id="zzoraaCount">0</span></div>
 </div>
-
 <div class="note-input">
 <select id="noteAuthor">
 <option value="nagata">Nagata ❤️</option>
@@ -295,7 +167,6 @@ footer{text-align:center;padding:20px;background:#eee;color:#555;}
 <input type="text" id="noteText" placeholder="Tulis sesuatu yahh babyy">
 <button onclick="addNote()">Add</button>
 </div>
-
 <div id="notesContainer"></div>
 </div>
 
@@ -308,9 +179,7 @@ footer{text-align:center;padding:20px;background:#eee;color:#555;}
 </div>
 </div>
 
-<footer>This is Nagata who loves Zzoraa very much :3</footer>
-
-<!-- ===== BIRTHDAY PASSWORD POPUP ===== -->
+<!-- BIRTHDAY POPUPS -->
 <div class="birthday-popup" id="birthdayPasswordPopup">
 <div class="birthday-card">
 <h2>🎂 Birthday Access</h2>
@@ -321,42 +190,36 @@ footer{text-align:center;padding:20px;background:#eee;color:#555;}
 </div>
 </div>
 
-<!-- ===== BIRTHDAY MESSAGE POPUP ===== -->
 <div class="birthday-popup" id="birthdayMessagePopup">
 <div class="birthday-card">
 <h2>🥳 HAPPY BIRTHDAYYY 🎉</h2>
-<div style="font-size:15px;line-height:1.5;margin-top:10px;
-</div>
+<p style="font-size:15px; line-height:1.5; margin-top:10px;"></p>
 <button onclick="closeBirthdayPopup()">Close</button>
 </div>
 </div>
+
+<footer>This is Nagata who loves Zzoraa very much :3</footer>
 
 <!-- FIREBASE -->
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
 
 <script>
-function toggleMenu(){
-document.getElementById("nav-links").classList.toggle("active");
-}
-
+function toggleMenu(){ document.getElementById("nav-links").classList.toggle("active"); }
 const startDate=new Date("2025-08-21T00:00:00");
-const annivDay=startDate.getDate();
-const annivMonth=startDate.getMonth()+1;
+const annivDay=startDate.getDate(), annivMonth=startDate.getMonth()+1;
 
-/* TIMER */
+// TIMER
 function updateLoveTime(){
-const now=new Date();
-const diff=now-startDate;
+const now=new Date(), diff=now-startDate;
 document.getElementById("days").textContent=Math.floor(diff/(1000*60*60*24));
 document.getElementById("hours").textContent=Math.floor((diff/(1000*60*60))%24);
 document.getElementById("minutes").textContent=Math.floor((diff/(1000*60))%60);
 document.getElementById("seconds").textContent=Math.floor((diff/1000)%60);
 }
-setInterval(updateLoveTime,1000);
-updateLoveTime();
+setInterval(updateLoveTime,1000); updateLoveTime();
 
-/* ANNIVERSARY */
+// ANNIVERSARY POPUP
 function openAnniversary(){
 const today=new Date();
 if(today.getDate()===annivDay && today.getMonth()+1===annivMonth){
@@ -366,14 +229,11 @@ document.getElementById("popupMessage").innerText=
 `Ga kerasa yaa kita sudah bersama selama ${years} tahun.
 Dari hari pertama sampai hari ini,
 kamu masih jadi alasan aku senyum setiap hari.
-
 Thank you sudah bertahan,
 thank you sudah sabar,
 thank you for choosing me, every single day.
-
 Semua tawa, semua cerita,
 buat aku itu precious banget karena sama kamu.
-
 I lovee you yesterday, today, and tomorrow,
 Nothing gonna change my love for you babyy :3 🤍`;
 }else{
@@ -396,11 +256,9 @@ document.getElementById("popupMessage").innerText="Hari ini bukan mensiversary k
 document.getElementById("annivPopup").style.display="flex";
 }
 
-function closePopup(){
-document.getElementById("annivPopup").style.display="none";
-}
+function closePopup(){ document.getElementById("annivPopup").style.display="none"; }
 
-/* FIREBASE CONFIG */
+// FIREBASE
 const firebaseConfig={
 apiKey:"AIzaSyXXXX",
 authDomain:"love-storage-e3fa8.firebaseapp.com",
@@ -409,106 +267,79 @@ storageBucket:"love-storage-e3fa8.appspot.com",
 messagingSenderId:"123681764269",
 appId:"1:123681764269:web:a6fea729c43aabdef9e724"
 };
-
 firebase.initializeApp(firebaseConfig);
 const db=firebase.firestore();
-
 const passwords={nagata:"25",zzoraa:"23"};
 
 async function addNote(){
 const author=document.getElementById("noteAuthor").value;
 const password=document.getElementById("notePassword").value;
 const text=document.getElementById("noteText").value.trim();
-if(!text){alert("Tulis dulu yaa 💌");return;}
-if(password!==passwords[author]){alert("Password salah 😝");return;}
-
-await db.collection("loveNotes").add({
-author,
-text,
-created:firebase.firestore.FieldValue.serverTimestamp()
-});
-
-document.getElementById("noteText").value="";
-document.getElementById("notePassword").value="";
+if(!text){alert("Tulis dulu yaa 💌"); return;}
+if(password!==passwords[author]){alert("Password salah 😝"); return;}
+await db.collection("loveNotes").add({author, text, created:firebase.firestore.FieldValue.serverTimestamp()});
+document.getElementById("noteText").value=""; document.getElementById("notePassword").value="";
 }
 
-db.collection("loveNotes").orderBy("created","desc")
-.onSnapshot((snapshot)=>{
+db.collection("loveNotes").orderBy("created","desc").onSnapshot((snapshot)=>{
 const container=document.getElementById("notesContainer");
 container.innerHTML="";
-let nagataCount=0,zzoraaCount=0;
-
+let nagataCount=0, zzoraaCount=0;
 snapshot.forEach((doc)=>{
 const data=doc.data();
 if(data.author==="nagata")nagataCount++;
 if(data.author==="zzoraa")zzoraaCount++;
-
 const card=document.createElement("div");
 card.className=`note-card ${data.author}`;
 const date=data.created?.toDate();
 const formatted=date?date.toLocaleString():"Baru saja 💖";
-
-card.innerHTML=`
-<strong>${data.author==="nagata"?"Nagata ❤️":"Zzoraa 💙"}</strong>
-<p>${data.text}</p>
-<div class="note-date">${formatted}</div>
-`;
-
+card.innerHTML=`<strong>${data.author==="nagata"?"Nagata ❤️":"Zzoraa 💙"}</strong><p>${data.text}</p><div class="note-date">${formatted}</div>`;
 container.appendChild(card);
 });
-
 document.getElementById("nagataCount").textContent=nagataCount;
 document.getElementById("zzoraaCount").textContent=zzoraaCount;
 });
 
-// ===== BIRTHDAY SYSTEM =====
-const birthdayMonth = 2;  // ganti bulan
-const birthdayDate = 27;  // ganti tanggal
+// BIRTHDAY
+const birthdayMonth = 2;
+const birthdayDate = 27;
 const correctBirthdayPassword = "23";
-
 const todayBirthday = new Date();
 if(todayBirthday.getMonth()+1===birthdayMonth && todayBirthday.getDate()===birthdayDate){
 document.getElementById("birthdayPasswordPopup").classList.add("active");
 }
 
-document.getElementById("birthdayMessagePopup").innerHTML =
+document.getElementById("birthdayMessagePopup").querySelector("p").innerHTML =
 "🎉 Selamat ulang tahun babyy 🎂<br><br>" +
 "Happy Birthday, Zzoraa. On the 23rd of May, 2011, the world quietly became softer because you were born into it.<br><br>" +
-"Some people enter this world loudly, but you… you exist like a gentle light — steady, warm, and impossible to ignore once felt.<br><br>" +
-"Today is not just about adding another year to your life. It’s about honoring the heart you carry, " +
-"the kindness you show, and the strength you hold even when things feel heavy.<br><br>" +
-"If I could whisper a prayer into the sky for you, I would ask the universe to always be gentle with your soul. " +
-"To protect your dreams, to guard your smile, and to remind you, especially on difficult days, " +
-"that you are deeply loved and endlessly valuable.<br><br>" +
-"Loving you feels like finding calm in chaos, like discovering that my heart has a place it always wants to return to — and that place is you.<br><br>" +
-"If life ever becomes overwhelming, remember you do not walk alone — not in your fears, " +
-"not in your doubts, not in your silent battles.<br><br>" +
-"In a world that can sometimes be cruel, I want to be someone who brings you peace, someone who stays, someone who chooses you over and over again.<br><br>" +
-"May this new year of your life bring growth without breaking you, lessons without losing yourself, " +
-"and happiness that feels genuine and lasting.<br><br>" +
-"May your path be filled with light, your heart with courage, and your days with moments that make you proud to be you.<br><br>" +
-"And if souls truly recognize each other beyond time and distance, then I believe mine would still search for yours — " +
-"in every place, in every lifetime.<br><br>" +
-"May your soul continue to bloom beautifully, just as it was meant to.<br><br>" +
-"Sincerely, Nagata 🤍<br><br>" +
-"I LOVEE YOUU BABEE 💖";
-
+"‎"Some people enter this world loudly, but you… you exist like a gentle light — steady, warm, and impossible to ignore once felt.<br><br>" +
+‎"Today is not just about adding another year to your life. It’s about honoring the heart you carry, " +
+‎"the kindness you show, and the strength you hold even when things feel heavy.<br><br>" +
+‎"If I could whisper a prayer into the sky for you, I would ask the universe to always be gentle with your soul. " +
+‎"To protect your dreams, to guard your smile, and to remind you, especially on difficult days, " +
+‎"that you are deeply loved and endlessly valuable.<br><br>" +
+‎"Loving you feels like finding calm in chaos, like discovering that my heart has a place it always wants to return to — and that place is you.<br><br>" +
+‎"If life ever becomes overwhelming, remember you do not walk alone — not in your fears, " +
+‎"not in your doubts, not in your silent battles.<br><br>" +
+‎"In a world that can sometimes be cruel, I want to be someone who brings you peace, someone who stays, someone who chooses you over and over again.<br><br>" +
+‎"May this new year of your life bring growth without breaking you, lessons without losing yourself, " +
+‎"and happiness that feels genuine and lasting.<br><br>" +
+‎"May your path be filled with light, your heart with courage, and your days with moments that make you proud to be you.<br><br>" +
+‎"And if souls truly recognize each other beyond time and distance, then I believe mine would still search for yours — " +
+‎"in every place, in every lifetime.<br><br>" +
+‎"May your soul continue to bloom beautifully, just as it was meant to.<br><br>"
+"Sincerely, Nagata 🤍<br><br>
+I LOVEE YOUU BABEE 💖";
 
 function checkBirthdayPassword(){
 const input=document.getElementById("birthdayPasswordInput").value;
 if(input===correctBirthdayPassword){
 document.getElementById("birthdayPasswordPopup").classList.remove("active");
 document.getElementById("birthdayMessagePopup").classList.add("active");
-}else{
-document.getElementById("birthdayErrorText").style.display="block";
-}
+}else{ document.getElementById("birthdayErrorText").style.display="block"; }
 }
 
-function closeBirthdayPopup(){
-document.getElementById("birthdayMessagePopup").classList.remove("active");
-}
-
+function closeBirthdayPopup(){ document.getElementById("birthdayMessagePopup").classList.remove("active"); }
 </script>
-
 </body>
 </html>
